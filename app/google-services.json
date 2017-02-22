@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "664469831149",
+    "firebase_url": "https://teacherplanner-88465.firebaseio.com",
+    "project_id": "teacherplanner-88465",
+    "storage_bucket": "teacherplanner-88465.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664469831149:android:6f99afc91016b133",
+        "android_client_info": {
+          "package_name": "com.example.robertszekely.teacherplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "664469831149-51qg6j9o4una0iq6kdg6u9nm20v57i3s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.robertszekely.teacherplanner",
+            "certificate_hash": "f5c3155712e2f7d50ffade9e2264e9c4d0ddcc35"
+          }
+        },
+        {
+          "client_id": "664469831149-v4tk5gtu2o4sol8b3ppa4le3fvn6npfp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuiNIVPlvMvrY98tMLeBGBhB2FMAvirkE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "664469831149-v4tk5gtu2o4sol8b3ppa4le3fvn6npfp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
