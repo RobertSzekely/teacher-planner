@@ -1,4 +1,4 @@
-package com.example.robertszekely.teacherplanner;
+package com.example.robertszekely.teacherplanner.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,21 +8,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
-import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
+import com.example.robertszekely.teacherplanner.Fragment.NoteDetailFragment;
+import com.example.robertszekely.teacherplanner.R;
+
 /**
- * An activity representing a single Student detail screen. This
+ * An activity representing a single Note detail screen. This
  * activity is only used narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link StudentListActivity}.
+ * in a {@link NoteListActivity}.
  */
-public class StudentDetailActivity extends AppCompatActivity {
+public class NoteDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_detail);
+        setContentView(R.layout.activity_note_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
@@ -54,12 +56,12 @@ public class StudentDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(StudentDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(StudentDetailFragment.ARG_ITEM_ID));
-            StudentDetailFragment fragment = new StudentDetailFragment();
+            arguments.putString(NoteDetailFragment.ARG_ITEM_ID,
+                    getIntent().getStringExtra(NoteDetailFragment.ARG_ITEM_ID));
+            NoteDetailFragment fragment = new NoteDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.student_detail_container, fragment)
+                    .add(R.id.note_detail_container, fragment)
                     .commit();
         }
     }
@@ -69,13 +71,12 @@ public class StudentDetailActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             // This ID represents the Home or Up button. In the case of this
-            // activity, the Up button is shown. Use NavUtils to allow users
-            // to navigate up one level in the application structure. For
+            // activity, the Up button is shown. For
             // more details, see the Navigation pattern on Android Design:
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            NavUtils.navigateUpTo(this, new Intent(this, StudentListActivity.class));
+            navigateUpTo(new Intent(this, NoteListActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

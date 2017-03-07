@@ -1,4 +1,4 @@
-package com.example.robertszekely.teacherplanner;
+package com.example.robertszekely.teacherplanner.Activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import com.example.robertszekely.teacherplanner.R;
+import com.example.robertszekely.teacherplanner.Fragment.StudentDetailFragment;
 import com.example.robertszekely.teacherplanner.dummy.DummyContent;
 
 import java.util.List;
