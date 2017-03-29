@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import com.example.robertszekely.teacherplanner.Fragment.NoteDetailFragment;
+import com.example.robertszekely.teacherplanner.fragment.NoteDetailFragment;
 import com.example.robertszekely.teacherplanner.R;
 
 /**

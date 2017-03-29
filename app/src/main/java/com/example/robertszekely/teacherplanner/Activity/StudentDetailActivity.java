@@ -12,7 +12,7 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
 import com.example.robertszekely.teacherplanner.R;
-import com.example.robertszekely.teacherplanner.Fragment.StudentDetailFragment;
+import com.example.robertszekely.teacherplanner.fragment.StudentDetailFragment;
 
 /**
  * An activity representing a single Student detail screen. This
@@ -20,7 +20,11 @@ import com.example.robertszekely.teacherplanner.Fragment.StudentDetailFragment;
  * item details are presented side-by-side with a list of items
  * in a {@link StudentListActivity}.
  */
-public class StudentDetailActivity extends AppCompatActivity {
+public class StudentDetailActivity extends BaseActivity {
+
+    private static final String TAG = "StudentDetailActivity";
+
+    public static final String EXTRA_POST_KEY = "post_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

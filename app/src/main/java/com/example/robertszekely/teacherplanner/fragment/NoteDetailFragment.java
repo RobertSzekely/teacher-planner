@@ -1,4 +1,4 @@
-package com.example.robertszekely.teacherplanner.Fragment;
+package com.example.robertszekely.teacherplanner.fragment;
 
 import android.app.Activity;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,18 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.robertszekely.teacherplanner.Activity.StudentDetailActivity;
-import com.example.robertszekely.teacherplanner.Activity.StudentListActivity;
+import com.example.robertszekely.teacherplanner.Activity.NoteDetailActivity;
+import com.example.robertszekely.teacherplanner.Activity.NoteListActivity;
 import com.example.robertszekely.teacherplanner.R;
-import com.example.robertszekely.teacherplanner.dummy.DummyContent;
+import com.example.robertszekely.teacherplanner.Activity.dummy.DummyContent;
 
 /**
- * A fragment representing a single Student detail screen.
- * This fragment is either contained in a {@link StudentListActivity}
- * in two-pane mode (on tablets) or a {@link StudentDetailActivity}
+ * A fragment representing a single Note detail screen.
+ * This fragment is either contained in a {@link NoteListActivity}
+ * in two-pane mode (on tablets) or a {@link NoteDetailActivity}
  * on handsets.
  */
-public class StudentDetailFragment extends Fragment {
+public class NoteDetailFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -36,7 +36,7 @@ public class StudentDetailFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public StudentDetailFragment() {
+    public NoteDetailFragment() {
     }
 
     @Override
@@ -60,11 +60,11 @@ public class StudentDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.student_detail, container, false);
+        View rootView = inflater.inflate(R.layout.note_detail, container, false);
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.student_detail)).setText(mItem.details);
+            ((TextView) rootView.findViewById(R.id.note_detail)).setText(mItem.details);
         }
 
         return rootView;

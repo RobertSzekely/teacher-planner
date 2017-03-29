@@ -8,15 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.robertszekely.teacherplanner.Domain.Note;
-import com.example.robertszekely.teacherplanner.Fragment.NoteDetailFragment;
+import com.example.robertszekely.teacherplanner.models.Note;
+import com.example.robertszekely.teacherplanner.fragment.NoteDetailFragment;
 import com.example.robertszekely.teacherplanner.R;
 
 import com.example.robertszekely.teacherplanner.Activity.dummy.DummyContent;
@@ -24,8 +23,6 @@ import com.example.robertszekely.teacherplanner.Activity.dummy.DummyContent;
 import org.joda.time.DateTime;
 
 import java.util.List;
-
-import io.realm.Realm;
 
 /**
  * An activity representing a list of Notes. This activity

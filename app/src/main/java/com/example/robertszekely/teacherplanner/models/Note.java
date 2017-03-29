@@ -1,8 +1,4 @@
-package com.example.robertszekely.teacherplanner.Domain;
-
-import org.joda.time.LocalDate;
-
-import java.util.Date;
+package com.example.robertszekely.teacherplanner.models;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
