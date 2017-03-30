@@ -1,13 +1,10 @@
-package com.example.robertszekely.teacherplanner.Activity;
+package com.example.robertszekely.teacherplanner.activity;
 
-import android.app.FragmentTransaction;
-import android.content.Intent;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +15,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.robertszekely.teacherplanner.fragment.StudentDetailFragment;
 import com.example.robertszekely.teacherplanner.fragment.StudentListFragment;
 import com.example.robertszekely.teacherplanner.R;
 import com.firebase.ui.auth.AuthUI;
@@ -27,15 +26,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class TeacherMainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, StudentListFragment.DataPassListener {
 
     private FirebaseAuth auth;
     private static final int RC_SIGN_IN = 0;
-    private RecyclerView mStudentList;
-
-//    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-//    DatabaseReference mTeacherReference = mRootRef.child("teacher");
-//    DatabaseReference mStudentReference = mRootRef.child("student");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,10 +134,11 @@ public class TeacherMainActivity extends BaseActivity
         if (id == R.id.nav_calendar) {
 
         } else if (id == R.id.nav_students) {
-            navigateToActivity(StudentListActivity.class, null);
+//            navigateToActivity(StudentListActivity.class, null);
+            navigateToStudentListFragment();
 
         } else if (id == R.id.nav_notes) {
-            navigateToActivity(NoteListActivity.class, null);
+//            navigateToActivity(NoteListActivity.class, null);
 
         } else if (id == R.id.nav_search) {
 
@@ -177,4 +172,20 @@ public class TeacherMainActivity extends BaseActivity
         super.onDestroy();
     }
 
+    @Override
+    public void passData(String data) {
+        StudentDetailFragment detailFragment = new StudentDetailFragment();
+        Bundle args = new Bundle();
+        args.putString(StudentDetailFragment.DATA_RECEIVE, data);
+        detailFragment.setArguments(args);
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, detailFragment)
+                .addToBackStack("Students Fragment")
+                .commit();
+//        .getFragmentManager().beginTransaction()
+//                .replace(R.id.container, detailFragment)
+//                .addToBackStack("Students Fragment")
+//                .commit();
+    }
 }

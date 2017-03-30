@@ -1,4 +1,4 @@
-package com.example.robertszekely.teacherplanner.Activity;
+package com.example.robertszekely.teacherplanner.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

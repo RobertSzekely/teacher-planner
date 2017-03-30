@@ -16,21 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activity.StudentListActivity"
-            android:label="@string/title_student_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Activity.StudentDetailActivity"
-            android:label="@string/title_student_detail"
-            android:parentActivityName=".Activity.StudentListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-            <!-- <meta-data -->
-            <!-- android:name="android.support.PARENT_ACTIVITY" -->
-            <!-- android:value="com.example.robertszekely.teacherplanner.Activity.StudentListActivity" /> -->
-        </activity>
-        <activity
-            android:name=".Activity.TeacherMainActivity"
+            android:name=".activity.TeacherMainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -39,20 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activity.NoteListActivity"
-            android:label="@string/title_note_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".Activity.NoteDetailActivity"
-            android:label="@string/title_note_detail"
-            android:parentActivityName=".Activity.NoteListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.robertszekely.teacherplanner.Activity.NoteListActivity" />
-        </activity>
-        <activity android:name="com.example.robertszekely.teacherplanner.Activity.LoginActivity"
+        <activity android:name="com.example.robertszekely.teacherplanner.activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
@@ -62,7 +35,7 @@
         </activity>
 
 
-        <activity android:name="com.example.robertszekely.teacherplanner.Activity.SignupActivity"
+        <activity android:name="com.example.robertszekely.teacherplanner.activity.SignupActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
