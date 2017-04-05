@@ -36,7 +36,6 @@ public class TeacherMainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Firebase initialisation
         setupFireBase();
 //        addTeacher();
 //        addIteration();
@@ -183,9 +182,5 @@ public class TeacherMainActivity extends BaseActivity
         fragmentTransaction.replace(R.id.container, detailFragment)
                 .addToBackStack("Students Fragment")
                 .commit();
-//        .getFragmentManager().beginTransaction()
-//                .replace(R.id.container, detailFragment)
-//                .addToBackStack("Students Fragment")
-//                .commit();
     }
 }
