@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,17 +79,35 @@ public class StudentDetailFragment extends Fragment {
 
 
             @Override                                                                             //changed position to FINAL
-            protected void populateViewHolder(IterationViewHolder viewHolder, final Iteration model, final int position) {
+            protected void populateViewHolder(final IterationViewHolder viewHolder, final Iteration model, final int position) {
 
                 viewHolder.setIterationName(model.getIterationName());
                 viewHolder.setIterationDetails(model.getContent());
+                viewHolder.setIterationCheckBox(model.isCompleted());
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Log.w(TAG, "You clicked on " + position);
+
                     }
                 });
+                viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (buttonView.isChecked()) {
+                            Log.w(TAG, "You checked on " + position);
+                            mIterationReference.child(model.getIterationId()).child("completed").setValue(true);
+
+                        } else {
+                            Log.w(TAG, "You unchecked on " + position);
+                            mIterationReference.child(model.getIterationId()).child("completed").setValue(false);
+                        }
+
+                    }
+                });
+
+
             }
         };
 
@@ -103,11 +123,14 @@ public class StudentDetailFragment extends Fragment {
     private static class IterationViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
+        CheckBox checkBox;
 
         public IterationViewHolder(View itemView) {
             super(itemView);
 
             mView = itemView;
+
+            checkBox = (CheckBox)mView.findViewById(R.id.iterationCheckBox);
 
         }
 
@@ -119,6 +142,10 @@ public class StudentDetailFragment extends Fragment {
         private void setIterationDetails(String details) {
             TextView student_email = (TextView) mView.findViewById(R.id.iterationDetailsTextView);
             student_email.setText(details);
+        }
+
+        private void setIterationCheckBox(boolean checked) {
+            checkBox.setChecked(checked);
         }
 
     }
