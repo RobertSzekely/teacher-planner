@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.robertszekely.teacherplanner.R;
 import com.example.robertszekely.teacherplanner.fragment.StudentListFragment;
+import com.example.robertszekely.teacherplanner.models.Feature;
 import com.example.robertszekely.teacherplanner.models.Iteration;
 import com.example.robertszekely.teacherplanner.models.Student;
 import com.example.robertszekely.teacherplanner.models.Teacher;
@@ -24,6 +25,7 @@ public class BaseActivity  extends AppCompatActivity {
     DatabaseReference mStudentReference = mRootRef.child("student");
     DatabaseReference mTeacherReference = mRootRef.child("teacher");
     DatabaseReference mIterationReference = mRootRef.child("iteration");
+    DatabaseReference mFeatureReference = mRootRef.child("feature");
 
     public void showProgressDialog() {
         if (mProgressDialog == null) {
@@ -142,6 +144,21 @@ public class BaseActivity  extends AppCompatActivity {
         mIterationReference.child(iteration2.getIterationId()).setValue(iteration2);
         mIterationReference.child(iteration3.getIterationId()).setValue(iteration3);
         mIterationReference.child(iteration4.getIterationId()).setValue(iteration4);
+    }
+
+    public void addFeatures() {
+        Feature feature1 = new Feature(generateId(), "Feature1" , "Description of iteration one from the iteration list", "4472ab46-c308-40d9-ab76-98d51d8aa53c", false);
+        Feature feature2 = new Feature(generateId(), "Feature2" , "Description of iteration two from the iteration list", "4472ab46-c308-40d9-ab76-98d51d8aa53c", false);
+        Feature feature3 = new Feature(generateId(), "Feature3" , "Description of iteration three from the iteration list", "4472ab46-c308-40d9-ab76-98d51d8aa53c", false);
+        Feature feature4 = new Feature(generateId(), "Feature4" , "Description of iteration four from the iteration list", "4472ab46-c308-40d9-ab76-98d51d8aa53c", false);
+        Feature feature5 = new Feature(generateId(), "Feature1" , "Description of iteration one from the iteration list", "2757cc9b-176a-4e01-ae85-79d5184eaa65", false);
+        Feature feature6 = new Feature(generateId(), "Feature2" , "Description of iteration two from the iteration list", "2757cc9b-176a-4e01-ae85-79d5184eaa65", false);
+        mFeatureReference.child(feature1.getFeatureId()).setValue(feature1);
+        mFeatureReference.child(feature2.getFeatureId()).setValue(feature2);
+        mFeatureReference.child(feature3.getFeatureId()).setValue(feature3);
+        mFeatureReference.child(feature4.getFeatureId()).setValue(feature4);
+        mFeatureReference.child(feature5.getFeatureId()).setValue(feature5);
+        mFeatureReference.child(feature6.getFeatureId()).setValue(feature6);
     }
 
 }

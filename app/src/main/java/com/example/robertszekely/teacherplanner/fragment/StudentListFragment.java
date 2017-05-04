@@ -18,6 +18,7 @@ import com.example.robertszekely.teacherplanner.models.Student;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import static com.example.robertszekely.teacherplanner.activity.BaseActivity.fmt;
 
@@ -26,11 +27,12 @@ public class StudentListFragment extends Fragment {
     private static final String TAG = "StudentListFragment";
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference mStudentReference = mRootRef.child("student");
+    private DatabaseReference mIterationReference = mRootRef.child("iteration");
     private RecyclerView studentListRecyclerView;
-    private DataPassListener mCallBack;
+    private StudentDataPassListener mCallBack;
 
-    public interface DataPassListener{
-        public void passData(String data);
+    public interface StudentDataPassListener {
+        public void passStudentData(String data);
     }
 
     @Nullable
@@ -47,7 +49,7 @@ public class StudentListFragment extends Fragment {
         //set adapter
         FirebaseRecyclerAdapter<Student, StudentViewHolder> firebaseStudentRecyclerAdapter = new FirebaseRecyclerAdapter<Student, StudentListFragment.StudentViewHolder>(
                 Student.class,
-                R.layout.student_row,
+                R.layout.row_student,
                 StudentListFragment.StudentViewHolder.class,
                 mStudentReference) {
 
@@ -67,7 +69,7 @@ public class StudentListFragment extends Fragment {
                         Log.w(TAG, "You clicked on " + student_key);
 //                        mRecycleViewAdapter.getRef(position).removeValue();
 //                        Bundle bundle = new Bundle(model.getUid());
-                        mCallBack.passData(student_key);
+                        mCallBack.passStudentData(student_key);
                     }
                 });
             }
@@ -81,10 +83,10 @@ public class StudentListFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            mCallBack = (DataPassListener)context;
+            mCallBack = (StudentDataPassListener)context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
-                    + " must implement DataPassListener");
+                    + " must implement StudentDataPassListener");
         }
     }
 

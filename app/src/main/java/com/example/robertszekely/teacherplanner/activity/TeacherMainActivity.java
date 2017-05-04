@@ -1,11 +1,9 @@
 package com.example.robertszekely.teacherplanner.activity;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,7 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.robertszekely.teacherplanner.fragment.StudentDetailFragment;
+import com.example.robertszekely.teacherplanner.fragment.FeatureListFragment;
+import com.example.robertszekely.teacherplanner.fragment.IterationListFragment;
 import com.example.robertszekely.teacherplanner.fragment.StudentListFragment;
 import com.example.robertszekely.teacherplanner.R;
 import com.firebase.ui.auth.AuthUI;
@@ -26,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class TeacherMainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, StudentListFragment.DataPassListener {
+        implements NavigationView.OnNavigationItemSelectedListener, StudentListFragment.StudentDataPassListener, IterationListFragment.IterationDataPassListener {
 
     private FirebaseAuth auth;
     private static final int RC_SIGN_IN = 0;
@@ -39,6 +38,7 @@ public class TeacherMainActivity extends BaseActivity
         setupFireBase();
 //        addTeacher();
 //        addIteration();
+//        addFeatures();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -172,15 +172,28 @@ public class TeacherMainActivity extends BaseActivity
     }
 
     @Override
-    public void passData(String data) {
-        StudentDetailFragment detailFragment = new StudentDetailFragment();
+    public void passStudentData(String data) {
+        IterationListFragment detailFragment = new IterationListFragment();
         Bundle args = new Bundle();
-        args.putString(StudentDetailFragment.DATA_RECEIVE, data);
+        args.putString(IterationListFragment.DATA_RECEIVE, data);
         detailFragment.setArguments(args);
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, detailFragment)
                 .addToBackStack("Students Fragment")
+                .commit();
+    }
+
+    @Override
+    public void passIterationData(String data) {
+        FeatureListFragment featureListFragment = new FeatureListFragment();
+        Bundle args = new Bundle();
+        args.putString(FeatureListFragment.DATA_RECEIVE, data);
+        featureListFragment.setArguments(args);
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, featureListFragment)
+                .addToBackStack("Feature list Fragment")
                 .commit();
     }
 }

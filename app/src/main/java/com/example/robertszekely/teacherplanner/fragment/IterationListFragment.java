@@ -1,5 +1,6 @@
 package com.example.robertszekely.teacherplanner.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,35 +16,35 @@ import android.widget.Toast;
 
 import com.example.robertszekely.teacherplanner.R;
 import com.example.robertszekely.teacherplanner.models.Iteration;
-import com.example.robertszekely.teacherplanner.models.Student;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-import static com.example.robertszekely.teacherplanner.activity.BaseActivity.fmt;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
-public class StudentDetailFragment extends Fragment {
+public class IterationListFragment extends Fragment {
 
-    private static final String TAG = "StudentDetailFragment";
+    private static final String TAG = "IterationListFragment";
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference mIterationReference = mRootRef.child("iteration");
-    private DatabaseReference mDatabaseCurrentStundet;
-    private Query mQueryCurrentUser;
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
-    public static final String ARG_ITEM_ID = "item_id";
+    private DatabaseReference mStudentReference = mRootRef.child("student");
+    private DatabaseReference mDatabaseCurrentStundent;
+    private Query mQueryCurrentStudentIterations;
+    private Query mQueryStudentProgress;
+    private IterationDataPassListener mCallBack;
     public final static String DATA_RECEIVE = "data_receive";
-
-    private Student mItem;
     private String mStudentKey;
 
-    public StudentDetailFragment() {
+    public interface IterationDataPassListener {
+        public void passIterationData(String data);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,12 +59,43 @@ public class StudentDetailFragment extends Fragment {
 
         if(mStudentKey != null) {
 //            ((TextView) rootView.findViewById(R.id.student_name_text_view)).setText(mStudentKey);
-            mDatabaseCurrentStundet = FirebaseDatabase.getInstance().getReference().child("iteration");
-            mQueryCurrentUser = mDatabaseCurrentStundet.orderByChild("studentId").equalTo(mStudentKey);
+//            mDatabaseCurrentStundent = FirebaseDatabase.getInstance().getReference().child("iteration");
+            mQueryCurrentStudentIterations = mIterationReference.orderByChild("studentId").equalTo(mStudentKey);
         } else {
             Toast.makeText(getContext(), "Something went wrong :(", Toast.LENGTH_SHORT).show();
 
         }
+
+
+        mQueryCurrentStudentIterations.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Iteration> iterationCompletedList = new ArrayList<>();
+                int totalIterations=0;
+                for(DataSnapshot iterationSnapshot: dataSnapshot.getChildren()) {
+                    totalIterations++;
+                    Iteration iteration = iterationSnapshot.getValue(Iteration.class);
+                    if(iteration.isCompleted()) {
+                        iterationCompletedList.add(iteration);
+                    }
+                }
+                float progress;
+                if(iterationCompletedList.size() == 0) {
+                    progress = 0;
+                } else {
+                    progress = iterationCompletedList.size()*100/totalIterations;
+                }
+//                Toast.makeText(getContext(), "Progress: " + progress, Toast.LENGTH_SHORT).show();
+                Log.w(TAG, "Progress: " + progress);
+                mStudentReference.child(mStudentKey).child("progress").setValue(progress);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         //setting recyclerview
         RecyclerView iterationRecyclerView = (RecyclerView) rootView.findViewById(R.id.iterationRecyclerView);
@@ -73,25 +105,31 @@ public class StudentDetailFragment extends Fragment {
         //set adapter
         FirebaseRecyclerAdapter<Iteration, IterationViewHolder> firebaseIterationAdapter = new FirebaseRecyclerAdapter<Iteration, IterationViewHolder>(
                 Iteration.class,
-                R.layout.iteration_row,
+                R.layout.row_iteration,
                 IterationViewHolder.class,
-                mQueryCurrentUser) {
+                mQueryCurrentStudentIterations) {
 
 
             @Override                                                                             //changed position to FINAL
             protected void populateViewHolder(final IterationViewHolder viewHolder, final Iteration model, final int position) {
 
+                final String iteration_key = getRef(position).getKey();
+
                 viewHolder.setIterationName(model.getIterationName());
                 viewHolder.setIterationDetails(model.getContent());
                 viewHolder.setIterationCheckBox(model.isCompleted());
 
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Log.w(TAG, "You clicked on " + position);
 
-                    }
-                });
+
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Log.w(TAG, "You clicked on " + position +"   "   +iteration_key);
+                                mCallBack.passIterationData(iteration_key);
+                            }
+                        });
+
+
                 viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -111,12 +149,19 @@ public class StudentDetailFragment extends Fragment {
             }
         };
 
-//        // Show the dummy content as text in a TextView.
-//        if (mItem != null) {
-//            ((TextView) rootView.findViewById(R.id.fragment_student_detail)).setText(mItem.details);
-//        }
         iterationRecyclerView.setAdapter(firebaseIterationAdapter);
         return rootView;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mCallBack = (IterationDataPassListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement StudentDataPassListener");
+        }
     }
 
 
