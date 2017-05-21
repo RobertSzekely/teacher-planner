@@ -12,6 +12,7 @@ public class Iteration {
     private String iterationName;
     private String content;
     private String studentId;
+    private float progress;
     private boolean completed;
 
     public Iteration(String iterationId, String iterationName, String content, String studentId, boolean completed) {
@@ -21,4 +22,6 @@ public class Iteration {
         this.studentId = studentId;
         this.completed = completed;
     }
+
+
 }

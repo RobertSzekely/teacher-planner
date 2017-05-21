@@ -90,7 +90,7 @@ public class StudentListFragment extends Fragment {
         }
     }
 
-    private static class StudentViewHolder extends RecyclerView.ViewHolder {
+    public static class StudentViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
 

@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.robertszekely.teacherplanner.activity.BaseActivity.fmt;
+
 
 public class IterationListFragment extends Fragment {
 
@@ -70,21 +72,21 @@ public class IterationListFragment extends Fragment {
         mQueryCurrentStudentIterations.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Iteration> iterationCompletedList = new ArrayList<>();
                 int totalIterations=0;
+                float totalProgress=0;
                 for(DataSnapshot iterationSnapshot: dataSnapshot.getChildren()) {
                     totalIterations++;
                     Iteration iteration = iterationSnapshot.getValue(Iteration.class);
-                    if(iteration.isCompleted()) {
-                        iterationCompletedList.add(iteration);
-                    }
+                    totalProgress += iteration.getProgress();
+                    Log.w(TAG, "iteration progress" + iteration.getProgress());
                 }
                 float progress;
-                if(iterationCompletedList.size() == 0) {
+                if(totalIterations==0) {
                     progress = 0;
                 } else {
-                    progress = iterationCompletedList.size()*100/totalIterations;
+                    progress = totalProgress/totalIterations;
                 }
+//                progress = totalProgress/totalIterations;
 //                Toast.makeText(getContext(), "Progress: " + progress, Toast.LENGTH_SHORT).show();
                 Log.w(TAG, "Progress: " + progress);
                 mStudentReference.child(mStudentKey).child("progress").setValue(progress);
@@ -105,7 +107,7 @@ public class IterationListFragment extends Fragment {
         //set adapter
         FirebaseRecyclerAdapter<Iteration, IterationViewHolder> firebaseIterationAdapter = new FirebaseRecyclerAdapter<Iteration, IterationViewHolder>(
                 Iteration.class,
-                R.layout.row_iteration,
+                R.layout.row_general_item,
                 IterationViewHolder.class,
                 mQueryCurrentStudentIterations) {
 
@@ -118,6 +120,7 @@ public class IterationListFragment extends Fragment {
                 viewHolder.setIterationName(model.getIterationName());
                 viewHolder.setIterationDetails(model.getContent());
                 viewHolder.setIterationCheckBox(model.isCompleted());
+                viewHolder.setIterationProgress(fmt(model.getProgress()));
 
 
 
@@ -136,10 +139,12 @@ public class IterationListFragment extends Fragment {
                         if (buttonView.isChecked()) {
                             Log.w(TAG, "You checked on " + position);
                             mIterationReference.child(model.getIterationId()).child("completed").setValue(true);
+                            mIterationReference.child(model.getIterationId()).child("progress").setValue(100);
 
                         } else {
                             Log.w(TAG, "You unchecked on " + position);
                             mIterationReference.child(model.getIterationId()).child("completed").setValue(false);
+                            mIterationReference.child(model.getIterationId()).child("progress").setValue(0);
                         }
 
                     }
@@ -175,18 +180,24 @@ public class IterationListFragment extends Fragment {
 
             mView = itemView;
 
-            checkBox = (CheckBox)mView.findViewById(R.id.iterationCheckBox);
+            checkBox = (CheckBox)mView.findViewById(R.id.itemCheckBox);
 
         }
 
         private void setIterationName(String name) {
-            TextView student_name = (TextView) mView.findViewById(R.id.iterationNameTextView);
+            TextView student_name = (TextView) mView.findViewById(R.id.itemNameTextView);
             student_name.setText(name);
         }
 
         private void setIterationDetails(String details) {
-            TextView student_email = (TextView) mView.findViewById(R.id.iterationDetailsTextView);
+            TextView student_email = (TextView) mView.findViewById(R.id.itemDetailsTextView);
             student_email.setText(details);
+        }
+
+        private void setIterationProgress(String progress) {
+            TextView mIterationProgress = (TextView) mView.findViewById(R.id.itemProgressTextView);
+            final String progressText = progress+"%";
+            mIterationProgress.setText(progressText);
         }
 
         private void setIterationCheckBox(boolean checked) {

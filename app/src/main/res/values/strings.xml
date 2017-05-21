@@ -25,4 +25,6 @@
     <string name="title_activity_note">NoteActivity</string>
     <string name="title_note_list">Notes</string>
     <string name="title_note_detail">Note Detail</string>
+    <string name="progress">Progress:</string>
+    <string name="percent">%</string>
 </resources>

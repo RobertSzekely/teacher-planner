@@ -18,6 +18,7 @@ import com.example.robertszekely.teacherplanner.fragment.FeatureListFragment;
 import com.example.robertszekely.teacherplanner.fragment.IterationListFragment;
 import com.example.robertszekely.teacherplanner.fragment.StudentListFragment;
 import com.example.robertszekely.teacherplanner.R;
+import com.example.robertszekely.teacherplanner.fragment.TaskListFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,7 +26,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class TeacherMainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, StudentListFragment.StudentDataPassListener, IterationListFragment.IterationDataPassListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        StudentListFragment.StudentDataPassListener,
+        IterationListFragment.IterationDataPassListener,
+        FeatureListFragment.FeatureDataPassListener {
 
     private FirebaseAuth auth;
     private static final int RC_SIGN_IN = 0;
@@ -39,6 +43,7 @@ public class TeacherMainActivity extends BaseActivity
 //        addTeacher();
 //        addIteration();
 //        addFeatures();
+//        addTasks();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -194,6 +199,19 @@ public class TeacherMainActivity extends BaseActivity
         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, featureListFragment)
                 .addToBackStack("Feature list Fragment")
+                .commit();
+    }
+
+    @Override
+    public void passFeatureData(String data) {
+        TaskListFragment taskListFragment = new TaskListFragment();
+        Bundle args = new Bundle();
+        args.putString(TaskListFragment.DATA_RECEIVE, data);
+        taskListFragment.setArguments(args);
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, taskListFragment)
+                .addToBackStack("Task list Fragment")
                 .commit();
     }
 }

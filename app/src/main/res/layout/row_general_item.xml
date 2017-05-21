@@ -10,37 +10,52 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/itemNameTextView"
-            android:padding="10dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:padding="10dp"
             android:text="Item Name"
-            android:layout_alignParentStart="true" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/itemDetailsTextView"
-            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-            android:layout_toStartOf="@+id/itemCheckBox"
             android:layout_below="@+id/itemNameTextView"
-            android:layout_alignParentEnd="true" />
+            android:layout_toStartOf="@+id/itemCheckBox"
+            android:padding="10dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+
         <CheckBox
             android:id="@+id/itemCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/itemDetailsTextView"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:checked="false"
-            android:duplicateParentState="false"
-            android:layout_above="@+id/itemDetailsTextView" />
+            android:duplicateParentState="false" />
+
+        <TextView
+            android:id="@+id/itemProgressTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/itemNameTextView"
+            android:layout_alignBottom="@+id/itemNameTextView"
+            android:layout_toStartOf="@+id/itemCheckBox"
+            android:padding="10dp"
+            android:text="Text"
+            android:textSize="15sp" />
+
+
 
     </RelativeLayout>
 

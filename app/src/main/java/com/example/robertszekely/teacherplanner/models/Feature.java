@@ -12,13 +12,15 @@ public class Feature {
     private String featureName;
     private String content;
     private String iterationId;
+    private float progress;
     private boolean completed;
 
-    public Feature(String featureId, String featureName, String content, String iterationId, boolean completed) {
+    public Feature(String featureId, String featureName, String content, String iterationId, boolean completed, float progress) {
         this.featureId = featureId;
         this.featureName = featureName;
         this.content = content;
         this.iterationId = iterationId;
         this.completed = completed;
+        this.progress = progress;
     }
 }
