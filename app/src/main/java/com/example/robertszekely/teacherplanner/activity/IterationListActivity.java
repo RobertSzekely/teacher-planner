@@ -21,13 +21,15 @@ import com.example.robertszekely.teacherplanner.models.Student;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class IterationListActivity extends BaseActivity {
 
     private static final String TAG = IterationListActivity.class.getSimpleName();
 
     RecyclerView iterationRecyclerView;
 
-    private Student student;
     private Query mQueryCurrentStudentIterations;
 
     @Override
@@ -46,7 +48,8 @@ public class IterationListActivity extends BaseActivity {
             }
         });
 
-        student = getIntent().getExtras().getParcelable("student");
+        Student student = (Student) getIntent().getExtras().getSerializable("student");
+
         if (student != null) {
             String mStudentKey = student.getUid();
             mQueryCurrentStudentIterations = mIterationReference.orderByChild("studentId").equalTo(mStudentKey);
@@ -54,7 +57,6 @@ public class IterationListActivity extends BaseActivity {
         } else {
             Toast.makeText(this, "Something went wrong :(", Toast.LENGTH_SHORT).show();
         }
-
 
         setRecyclerView();
         setAdapter();
@@ -85,33 +87,34 @@ public class IterationListActivity extends BaseActivity {
                 viewHolder.setIterationCheckBox(model.isCompleted());
                 viewHolder.setIterationProgress(fmt(model.getProgress()));
 
-
-
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Log.w(TAG, "You clicked on " + position +"   "   +iteration_key);
+                        Log.w(TAG, "You clicked on " + model.getIterationName());
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("iteration_key", model);
+                        navigateToActivity(IterationDetailsActivity.class, bundle);
 
                     }
                 });
 
 
-                viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (buttonView.isChecked()) {
-                            Log.w(TAG, "You checked on " + position);
-                            mIterationReference.child(model.getIterationId()).child("completed").setValue(true);
-                            mIterationReference.child(model.getIterationId()).child("progress").setValue(100);
-
-                        } else {
-                            Log.w(TAG, "You unchecked on " + position);
-                            mIterationReference.child(model.getIterationId()).child("completed").setValue(false);
-                            mIterationReference.child(model.getIterationId()).child("progress").setValue(0);
-                        }
-
-                    }
-                });
+//                viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                    @Override
+//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                        if (buttonView.isChecked()) {
+//                            Log.w(TAG, "You checked on " + position);
+//                            mIterationReference.child(model.getIterationId()).child("completed").setValue(true);
+//                            mIterationReference.child(model.getIterationId()).child("progress").setValue(100);
+//
+//                        } else {
+//                            Log.w(TAG, "You unchecked on " + position);
+//                            mIterationReference.child(model.getIterationId()).child("completed").setValue(false);
+//                            mIterationReference.child(model.getIterationId()).child("progress").setValue(0);
+//                        }
+//
+//                    }
+//                });
 
 
             }
@@ -121,34 +124,29 @@ public class IterationListActivity extends BaseActivity {
     }
 
 
-
-
     public static class IterationViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
-        CheckBox checkBox;
+        @BindView(R.id.itemCheckBox) CheckBox checkBox;
+        @BindView(R.id.itemNameTextView) TextView mIterationTitle;
+        @BindView(R.id.itemDetailsTextView) TextView mIterationDetails;
+        @BindView(R.id.itemProgressTextView) TextView mIterationProgress;
 
         public IterationViewHolder(View itemView) {
             super(itemView);
-
             mView = itemView;
-
-            checkBox = (CheckBox)mView.findViewById(R.id.itemCheckBox);
-
+            ButterKnife.bind(this, itemView);
         }
 
         private void setIterationName(String name) {
-            TextView student_name = (TextView) mView.findViewById(R.id.itemNameTextView);
-            student_name.setText(name);
+            mIterationTitle.setText(name);
         }
 
         private void setIterationDetails(String details) {
-            TextView student_email = (TextView) mView.findViewById(R.id.itemDetailsTextView);
-            student_email.setText(details);
+            mIterationDetails.setText(details);
         }
 
         private void setIterationProgress(String progress) {
-            TextView mIterationProgress = (TextView) mView.findViewById(R.id.itemProgressTextView);
             final String progressText = progress+"%";
             mIterationProgress.setText(progressText);
         }

@@ -50,8 +50,7 @@ public class BaseActivity  extends AppCompatActivity {
     }
 
     public String generateId() {
-        String uniqueID = UUID.randomUUID().toString();
-        return uniqueID;
+        return UUID.randomUUID().toString();
     }
 
     public static String fmt(double d)
@@ -83,30 +82,6 @@ public class BaseActivity  extends AppCompatActivity {
                 addToBackStack(null).
                 commit();
     }
-
-
-
-//    private void navigateToStudentFragment(Class fragmentClass, Bundle argumets) {
-//        Fragment fr = new fragmentClass;
-//        fr.setArguments(args);
-//        FragmentManager fm = getFragmentManager();
-//        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//        fragmentTransaction.replace(R.id.fragment_place, fr);
-//        fragmentTransaction.commit();
-//
-//    }
-//
-//    public void navigateTo(Class fragmentClass, Bundle arguments) {
-//
-//        try {
-//            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-//            fragmentTransaction.replace(getContainerId(), currentFragment);
-//            fragmentTransaction.commitAllowingStateLoss();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public void addTeacher() {
         Teacher teacher1 = new Teacher();

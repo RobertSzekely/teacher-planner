@@ -40,7 +40,7 @@ public class StudentDetailsActivity extends BaseActivity {
 //        });
 
         //TODO replace with student_key from resources
-        student = getIntent().getExtras().getParcelable("student");
+        student = (Student) getIntent().getExtras().getSerializable("student");
 
         if(student != null) {
             setTextViewsInformation();
@@ -58,7 +58,7 @@ public class StudentDetailsActivity extends BaseActivity {
     public void seeIterationsForCurrentStudent() {
         Log.d(TAG, "Clicked iterations button");
         Bundle bundle = new Bundle();
-        bundle.putParcelable("student", student);
+        bundle.putSerializable("student", student);
         navigateToActivity(IterationListActivity.class, bundle);
     }
 

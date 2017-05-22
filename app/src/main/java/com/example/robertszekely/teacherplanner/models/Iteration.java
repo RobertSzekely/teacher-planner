@@ -1,13 +1,18 @@
 package com.example.robertszekely.teacherplanner.models;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 
-public class Iteration {
+public class Iteration implements Serializable {
     private String iterationId;
     private String iterationName;
     private String content;

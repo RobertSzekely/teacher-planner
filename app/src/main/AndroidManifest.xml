@@ -42,11 +42,12 @@
         <activity
             android:name=".activity.StudentDetailsActivity"
             android:label="@string/title_student_details_activity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.IterationListActivity"
             android:label="@string/title_activity_iteration_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.IterationDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -60,7 +60,7 @@ public class StudentListActivity extends BaseActivity {
                 public void onClick(View v) {
                     Log.d(TAG, "You clicked on " + model.getName());
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable("student", model);
+                    bundle.putSerializable("student", model);
                     navigateToActivity(StudentDetailsActivity.class, bundle);
                 }
             });
