@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.robertszekely.teacherplanner.R;
+import com.example.robertszekely.teacherplanner.models.Iteration;
 import com.example.robertszekely.teacherplanner.models.Student;
 
 public class StudentDetailsActivity extends BaseActivity {
@@ -71,7 +72,9 @@ public class StudentDetailsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Clicked iterations button");
-                //TODO
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("student", student);
+                navigateToActivity(IterationListActivity.class, bundle);
             }
         });
         Button mMeetingsButton = (Button) findViewById(R.id.meetingsButton);

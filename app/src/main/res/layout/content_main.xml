@@ -13,4 +13,6 @@
     tools:context="com.example.robertszekely.teacherplanner.activity.TeacherMainActivity"
     tools:showIn="@layout/app_bar_main">
 
+
+
 </RelativeLayout>
