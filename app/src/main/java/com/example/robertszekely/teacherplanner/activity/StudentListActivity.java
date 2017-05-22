@@ -56,6 +56,9 @@ public class StudentListActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "You clicked on " + model.getName());
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("student", model);
+                    navigateToActivity(StudentDetailsActivity.class, bundle);
                 }
             });
         }

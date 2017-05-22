@@ -27,4 +27,11 @@
     <string name="title_note_detail">Note Detail</string>
     <string name="progress">Progress:</string>
     <string name="percent">%</string>
+
+    <string name="title_student_details_activity">Student Details</string>
+    <string name="title_student_list_activity">Students</string>
+    <string name="name">Name:</string>
+    <string name="email">Email:</string>
+    <string name="phone">Phone:</string>
+    <string name="add_meeting">Add meeting</string>
 </resources>
