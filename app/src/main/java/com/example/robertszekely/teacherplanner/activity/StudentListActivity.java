@@ -13,6 +13,9 @@ import com.example.robertszekely.teacherplanner.R;
 import com.example.robertszekely.teacherplanner.models.Student;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class StudentListActivity extends BaseActivity {
 
     private static String TAG = StudentListActivity.class.getSimpleName();
@@ -71,29 +74,26 @@ public class StudentListActivity extends BaseActivity {
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
-        TextView mNameTextView;
-        TextView mEmailTextView;
-        TextView mProgressTextView;
+        @BindView(R.id.studentNameTextView) TextView mNameTextView;
+        @BindView(R.id.studentEmailTextView) TextView mEmailTextView;
+        @BindView(R.id.progressTextView) TextView mProgressTextView;
 
         public StudentViewHolder(View itemView) {
             super(itemView);
-
+            ButterKnife.bind(this, itemView);
             mView = itemView;
 
         }
 
         private void setStudentName(String name) {
-            mNameTextView = (TextView) mView.findViewById(R.id.studentNameTextView);
             mNameTextView.setText(name);
         }
 
         private void setStundetEmail(String email) {
-            mEmailTextView = (TextView) mView.findViewById(R.id.studentEmailTextView);
             mEmailTextView.setText(email);
         }
 
         private void setStudentProgress(String progress) {
-            mProgressTextView = (TextView) mView.findViewById(R.id.progressTextView);
             String progressText = progress + "%";
             mProgressTextView.setText(progressText);
         }

@@ -13,10 +13,6 @@ public class TeacherPlannerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        Realm.init(this);
-//        RealmConfiguration config = new RealmConfiguration.Builder().build();
-//        Realm.setDefaultConfiguration(config);
-        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     }
 
 }
