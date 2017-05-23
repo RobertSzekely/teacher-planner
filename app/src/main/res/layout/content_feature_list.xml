@@ -8,4 +8,10 @@
     tools:context="com.example.robertszekely.teacherplanner.activity.FeatureListActivity"
     tools:showIn="@layout/activity_feature_list">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/featuresRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
 </android.support.constraint.ConstraintLayout>

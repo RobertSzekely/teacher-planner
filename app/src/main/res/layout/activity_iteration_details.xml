@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="30dp"
-    android:layout_marginStart="12dp"
-    android:layout_marginEnd="12dp"
+    android:padding="30dp"
     tools:context="com.example.robertszekely.teacherplanner.activity.IterationDetailsActivity">
 
     <TextView
@@ -16,15 +14,10 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textColor="@color/colorBlack"
-        tools:text="Kangaroo Valley Safari" />
+        tools:text="First Iteration" />
 
-    <Button
-        android:id="@+id/iterationDetailsSeeFeaturesButton"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Base.Widget.AppCompat.Button.Colored"
-        android:text="See features"/>
+
+
 
     <!--<View style="@style/Divider"-->
         <!--android:layout_marginTop="10dp"/>-->
@@ -89,6 +82,26 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     tools:text="10-11-2017" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/iterationDetailsSeeFeaturesButton"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Base.Widget.AppCompat.Button.Colored"
+                    android:elevation="2dp"
+                    android:text="See features"/>
+                <Button
+                    android:id="@+id/editOterationDetailsButton"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Base.Widget.AppCompat.Button"
+                    android:text="Edit Details"/>
             </LinearLayout>
 
 

@@ -47,10 +47,6 @@
             android:layout_below="@id/iterationTitleTextView"
             tools:text="10/10/2017"/>
 
-
-
-
-
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

@@ -42,6 +42,8 @@ public class IterationListActivity extends BaseActivity {
     private static final int COLOR_IN_PROGRESS_STATUS = Color.rgb(0, 182, 255);
     private static final int COLOR_RESOLVED_STATUS = Color.rgb(14, 214, 0);
     private static final int COLOR_CLOSED_STATUS = Color.rgb(72, 0, 255);
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,13 +65,11 @@ public class IterationListActivity extends BaseActivity {
         if (student != null) {
             String mStudentKey = student.getUid();
             mQueryCurrentStudentIterations = mIterationReference.orderByChild("studentId").equalTo(mStudentKey);
-
+            setRecyclerView();
+            setAdapter();
         } else {
             Toast.makeText(this, "Something went wrong :(", Toast.LENGTH_SHORT).show();
         }
-
-        setRecyclerView();
-        setAdapter();
 
     }
 
@@ -141,6 +141,7 @@ public class IterationListActivity extends BaseActivity {
         private void setIterationTitle(String name) {
             mIterationTitle.setText(name);
         }
+
         private void setIterationDeadline(Date date) {
             DateFormat df =  new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
             String formattedDate = df.format(date);
@@ -149,16 +150,16 @@ public class IterationListActivity extends BaseActivity {
         private void setIterationStatus(int status) {
             if (status == 1) {
                 mIterationStatus.setText(R.string.inprogress_status);
-                mIterationStatus.setTextColor(COLOR_IN_PROGRESS_STATUS);
+//                mIterationStatus.setTextColor(COLOR_IN_PROGRESS_STATUS);
             } else if (status == 2) {
                 mIterationStatus.setText(R.string.resolved_status);
-                mIterationStatus.setTextColor(COLOR_RESOLVED_STATUS);
+//                mIterationStatus.setTextColor(COLOR_RESOLVED_STATUS);
             } else if(status == 3) {
                 mIterationStatus.setText(R.string.closed_status);
-                mIterationStatus.setTextColor(COLOR_CLOSED_STATUS);
+//                mIterationStatus.setTextColor(COLOR_CLOSED_STATUS);
             } else {
                 mIterationStatus.setText(R.string.open_status);
-                mIterationStatus.setTextColor(COLOR_OPEN_STATUS);
+//                mIterationStatus.setTextColor(COLOR_OPEN_STATUS);
             }
         }
 

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.robertszekely.teacherplanner.R;
 import com.example.robertszekely.teacherplanner.models.Student;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.Query;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,11 +51,12 @@ public class StudentListActivity extends BaseActivity {
     }
 
     public void setStudentAdapter() {
+        Query studentAlphabeticalOrderQuery = mStudentReference.orderByChild("name");
         FirebaseRecyclerAdapter<Student, StudentViewHolder> firebaseStudentRecyclerAdapter = new FirebaseRecyclerAdapter<Student, StudentViewHolder>(
             Student.class,
             R.layout.row_student_without_profile_pic,
             StudentViewHolder.class,
-            mStudentReference) {
+            studentAlphabeticalOrderQuery) {
 
 
         @Override
