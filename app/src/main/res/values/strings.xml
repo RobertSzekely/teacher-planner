@@ -36,4 +36,15 @@
     <string name="add_meeting">Add meeting</string>
     <string name="title_activity_iteration_list">IterationListActivity</string>
     <string name="percent_symbol">%</string>
+    <string name="deadline">Deadline:</string>
+
+    <string name="open_status">Open</string>
+    <string name="inprogress_status">In Progress</string>
+    <string name="resolved_status">Resolved</string>
+    <string name="closed_status">Closed</string>
+    <string name="description">Description</string>
+    <string name="info">Info</string>
+    <string name="status">Status:</string>
+    <string name="features">Features</string>
+    <string name="title_activity_feature_list">FeatureListActivity</string>
 </resources>

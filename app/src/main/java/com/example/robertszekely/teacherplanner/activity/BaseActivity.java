@@ -18,16 +18,25 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class BaseActivity  extends AppCompatActivity {
+
     private ProgressDialog mProgressDialog;
+
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mStudentReference = mRootRef.child("student");
     DatabaseReference mTeacherReference = mRootRef.child("teacher");
     DatabaseReference mIterationReference = mRootRef.child("iteration");
     DatabaseReference mFeatureReference = mRootRef.child("feature");
     DatabaseReference mTaskReference = mRootRef.child("task");
+
+    protected static final String STUDENT_BUNDLE_KEY = "student_bundle_key";
+    protected static final String ITERAION_BUNDLE_KEY = "iteration_bundle_key";
+    protected static final String FEATURE_BUNDLE_KEY = "feature_bundle_key";
+    protected static final String TASK_BUNDLE_KEY = "task_bundle_key";
 
     public void showProgressDialog() {
         if (mProgressDialog == null) {
@@ -52,6 +61,12 @@ public class BaseActivity  extends AppCompatActivity {
     public String generateId() {
         return UUID.randomUUID().toString();
     }
+
+    public static int randInt(int min, int max) {
+
+        return ThreadLocalRandom.current().nextInt(min, max +1);
+    }
+
 
     public static String fmt(double d)
     {

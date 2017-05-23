@@ -47,7 +47,11 @@
             android:name=".activity.IterationListActivity"
             android:label="@string/title_activity_iteration_list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.IterationDetailsActivity"></activity>
+        <activity android:name=".activity.IterationDetailsActivity" />
+        <activity
+            android:name=".activity.FeatureListActivity"
+            android:label="@string/title_activity_feature_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

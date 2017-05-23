@@ -30,35 +30,21 @@ public class StudentDetailsActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-        //TODO replace with student_key from resources
-        student = (Student) getIntent().getExtras().getSerializable("student");
+        student = (Student) getIntent().getExtras().getSerializable(STUDENT_BUNDLE_KEY);
 
         if(student != null) {
-            setTextViewsInformation();
+            mNameTextView.setText(student.getName());
+            mEmailTextView.setText(student.getEmail());
+            mPhoneTextView.setText("to do");
+            mProgressTextView.setText(fmt(student.getProgress()));
         }
-    }
-
-    public void setTextViewsInformation() {
-        mNameTextView.setText(student.getName());
-        mEmailTextView.setText(student.getEmail());
-        mPhoneTextView.setText("to do");
-        mProgressTextView.setText(fmt(student.getProgress()));
     }
 
     @OnClick(R.id.iterationsButton)
     public void seeIterationsForCurrentStudent() {
         Log.d(TAG, "Clicked iterations button");
         Bundle bundle = new Bundle();
-        bundle.putSerializable("student", student);
+        bundle.putSerializable(STUDENT_BUNDLE_KEY, student);
         navigateToActivity(IterationListActivity.class, bundle);
     }
 

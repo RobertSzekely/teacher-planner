@@ -1,8 +1,11 @@
 package com.example.robertszekely.teacherplanner.activity;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,14 +38,21 @@ public class StudentListActivity extends BaseActivity {
 
     public void setStudentRecyclerView() {
         studentListRecyclerView = (RecyclerView) findViewById(R.id.student_list_recycler_view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        studentListRecyclerView.setLayoutManager(linearLayoutManager);
         studentListRecyclerView.setHasFixedSize(true);
-        studentListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+//        list item decorator
+//        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(this, linearLayoutManager.getOrientation());
+//        Drawable verticalDivider = ContextCompat.getDrawable(this, R.drawable.horizontal_divider);
+//        mDividerItemDecoration.setDrawable(verticalDivider);
+//        studentListRecyclerView.addItemDecoration(mDividerItemDecoration);
     }
 
     public void setStudentAdapter() {
         FirebaseRecyclerAdapter<Student, StudentViewHolder> firebaseStudentRecyclerAdapter = new FirebaseRecyclerAdapter<Student, StudentViewHolder>(
             Student.class,
-            R.layout.row_student,
+            R.layout.row_student_without_profile_pic,
             StudentViewHolder.class,
             mStudentReference) {
 
@@ -53,14 +63,13 @@ public class StudentListActivity extends BaseActivity {
 
             viewHolder.setStudentName(model.getName());
             viewHolder.setStundetEmail(model.getEmail());
-            viewHolder.setStudentProgress(fmt(model.getProgress()));
 
             viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "You clicked on " + model.getName());
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("student", model);
+                    bundle.putSerializable(STUDENT_BUNDLE_KEY, model);
                     navigateToActivity(StudentDetailsActivity.class, bundle);
                 }
             });
@@ -76,7 +85,6 @@ public class StudentListActivity extends BaseActivity {
         View mView;
         @BindView(R.id.studentNameTextView) TextView mNameTextView;
         @BindView(R.id.studentEmailTextView) TextView mEmailTextView;
-        @BindView(R.id.progressTextView) TextView mProgressTextView;
 
         public StudentViewHolder(View itemView) {
             super(itemView);
@@ -93,10 +101,6 @@ public class StudentListActivity extends BaseActivity {
             mEmailTextView.setText(email);
         }
 
-        private void setStudentProgress(String progress) {
-            String progressText = progress + "%";
-            mProgressTextView.setText(progressText);
-        }
 
     }
 }
