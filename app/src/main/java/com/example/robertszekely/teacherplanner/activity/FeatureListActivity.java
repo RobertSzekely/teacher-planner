@@ -9,7 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.robertszekely.teacherplanner.R;
 import com.example.robertszekely.teacherplanner.models.Feature;
@@ -25,8 +27,12 @@ import butterknife.OnClick;
 public class FeatureListActivity extends BaseActivity {
 
     private static final String TAG = FeatureListActivity.class.getSimpleName();
+
     @BindView(R.id.featuresRecyclerView)
     RecyclerView featureRecyclerView;
+
+    @BindView(R.id.fab)
+    FloatingActionButton floatingActionButton;
 
     private Query mQueryCurrentIterationFeatures;
 
@@ -40,23 +46,25 @@ public class FeatureListActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Facem ceva?", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
 
-        Iteration receivedIteration = (Iteration) getIntent().getExtras().getSerializable(ITERAION_BUNDLE_KEY);
-
-        if(receivedIteration != null) {
-            String iterationId = receivedIteration.getIterationId();
-            mQueryCurrentIterationFeatures = mFeatureReference.orderByChild("iterationId").equalTo(iterationId);
+        String receivedIterationKey = (String) getIntent().getExtras().getSerializable(ITERAION_BUNDLE_KEY);
+        Log.d(TAG, "OnCreate..........................");
+        if (receivedIterationKey != null) {
+            Log.d(TAG, "Received iteration key: " + receivedIterationKey);
+            mQueryCurrentIterationFeatures = mFeatureReference.orderByChild("iterationId").equalTo(receivedIterationKey);
             setRecyclerView();
             setAdapter();
+        } else {
+            Toast.makeText(this, "Something went wrong :(", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private void setRecyclerView() {
@@ -72,15 +80,24 @@ public class FeatureListActivity extends BaseActivity {
                 mQueryCurrentIterationFeatures) {
 
             @Override
-            protected void populateViewHolder(FeatureViewHolder viewHolder, Feature model, int position) {
+            protected void populateViewHolder(FeatureViewHolder viewHolder, final Feature model, int position) {
 
                 viewHolder.setDescriptionTextView(model.getContent());
                 viewHolder.setProgressTextView(model.getProgress());
+
+                viewHolder.viewTaskButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(FEATURE_BUNDLE_KEY, model.getFeatureId());
+                        navigateToActivity(TaskListActivity.class, bundle);
+                    }
+                });
+
             }
         };
         featureRecyclerView.setAdapter(firebaseRecyclerViewAdapter);
     }
-
 
 
     public static class FeatureViewHolder extends RecyclerView.ViewHolder {
@@ -89,6 +106,8 @@ public class FeatureListActivity extends BaseActivity {
         TextView descriptionTextView;
         @BindView(R.id.featureProgressTextView)
         TextView progressTextView;
+        @BindView(R.id.featureViewTaskButton)
+        Button viewTaskButton;
 
         public FeatureViewHolder(View itemView) {
             super(itemView);
@@ -103,10 +122,6 @@ public class FeatureListActivity extends BaseActivity {
             progressTextView.setText(fmt(progress));
         }
 
-        @OnClick(R.id.featureViewTaskButton)
-        public void viewTaskButton() {
-            Log.d(TAG, "View Tasks button pressed");
-        }
 
         @OnClick(R.id.featureEditFeatureButton)
         public void editFeatureDetailsButton() {

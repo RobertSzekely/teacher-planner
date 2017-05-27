@@ -1,13 +1,15 @@
 package com.example.robertszekely.teacherplanner.models;
 
 
+import java.io.Serializable;
+
 import lombok.*;
 
 @Setter
 @Getter
 @NoArgsConstructor
 
-public class Feature {
+public class Feature implements Serializable{
     private String featureId;
     private String featureName;
     private String content;
@@ -22,5 +24,13 @@ public class Feature {
         this.iterationId = iterationId;
         this.completed = completed;
         this.progress = progress;
+    }
+
+    @Override
+    public String toString() {
+        return "Feature{" +
+                "featureId='" + featureId + '\'' +
+                ", featureName='" + featureName + '\'' +
+                '}';
     }
 }

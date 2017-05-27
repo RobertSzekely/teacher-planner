@@ -38,6 +38,11 @@ public class BaseActivity  extends AppCompatActivity {
     protected static final String FEATURE_BUNDLE_KEY = "feature_bundle_key";
     protected static final String TASK_BUNDLE_KEY = "task_bundle_key";
 
+    protected static final String TEACHER_ID = "teacherId";
+    protected static final String ITERATION_ID = "iterationId";
+    protected static final String FEATURE_ID = "featureId";
+    protected static final String TASK_ID = "taskId";
+
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
@@ -104,27 +109,27 @@ public class BaseActivity  extends AppCompatActivity {
         teacher1.setEmail("teacher@scs.ubbcluj.ro");
         teacher1.setName("Teacher 1");
         teacher1.setPassword("password");
-        Student student1 = new Student();
-        student1.setUid(generateId());
-        student1.setName("Student 1");
-        student1.setEmail("student@scs.ubbcluj.ro");
-        student1.setPassword("password");
-        student1.setProgress(35f);
-        student1.setTeacherId(teacher1.getTeacherId());
-        Student student2 = new Student(generateId(), "Student2", "student2@scs.com", "password", teacher1.getTeacherId(), 30f);
-        Student student3 = new Student(generateId(), "Student3", "student3@scs.com", "password", teacher1.getTeacherId(), 10f);
-        Student student4 = new Student(generateId(), "Student4", "student4@scs.com", "password", teacher1.getTeacherId(), 32.7f);
-        Student student5 = new Student(generateId(), "Student5", "student5@scs.com", "password", teacher1.getTeacherId(), 99f);
-        Student student6 = new Student(generateId(), "Student6", "student6@scs.com", "password", teacher1.getTeacherId(), 100f);
-        Student student7 = new Student(generateId(), "Student7", "student7@scs.com", "password", teacher1.getTeacherId(), 25.3f);
-        mStudentReference.child(student1.getUid()).setValue(student1);
-        mStudentReference.child(student2.getUid()).setValue(student2);
-        mStudentReference.child(student3.getUid()).setValue(student3);
-        mStudentReference.child(student4.getUid()).setValue(student4);
-        mStudentReference.child(student5.getUid()).setValue(student5);
-        mStudentReference.child(student6.getUid()).setValue(student6);
-        mStudentReference.child(student7.getUid()).setValue(student7);
-        mTeacherReference.child(teacher1.getTeacherId()).setValue(teacher1);
+//        Student student1 = new Student();
+//        student1.setUid(generateId());
+//        student1.setName("Student 1");
+//        student1.setEmail("student@scs.ubbcluj.ro");
+//        student1.setPassword("password");
+//        student1.setProgress(35f);
+//        student1.setTeacherId(teacher1.getTeacherId());
+//        Student student2 = new Student(generateId(), "Student2", "student2@scs.com", "password", teacher1.getTeacherId(), 30f);
+//        Student student3 = new Student(generateId(), "Student3", "student3@scs.com", "password", teacher1.getTeacherId(), 10f);
+//        Student student4 = new Student(generateId(), "Student4", "student4@scs.com", "password", teacher1.getTeacherId(), 32.7f);
+//        Student student5 = new Student(generateId(), "Student5", "student5@scs.com", "password", teacher1.getTeacherId(), 99f);
+//        Student student6 = new Student(generateId(), "Student6", "student6@scs.com", "password", teacher1.getTeacherId(), 100f);
+//        Student student7 = new Student(generateId(), "Student7", "student7@scs.com", "password", teacher1.getTeacherId(), 25.3f);
+//        mStudentReference.child(student1.getUid()).setValue(student1);
+//        mStudentReference.child(student2.getUid()).setValue(student2);
+//        mStudentReference.child(student3.getUid()).setValue(student3);
+//        mStudentReference.child(student4.getUid()).setValue(student4);
+//        mStudentReference.child(student5.getUid()).setValue(student5);
+//        mStudentReference.child(student6.getUid()).setValue(student6);
+//        mStudentReference.child(student7.getUid()).setValue(student7);
+//        mTeacherReference.child(teacher1.getTeacherId()).setValue(teacher1);
 
     }
     public void addIteration() {

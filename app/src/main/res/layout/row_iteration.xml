@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="start"
     android:layout_height="wrap_content"
+    android:layout_margin="8dp"
     android:padding="30dp"
     app:contentPadding="20dp"
     android:foreground="?selectableItemBackground"
@@ -23,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:text="Iteration Title"
+            tools:text="Iteration Title"
             android:layout_alignParentStart="true" />
         <TextView
             android:id="@+id/iterationStatusTextView"
@@ -46,6 +47,40 @@
             android:layout_toEndOf="@id/textDeadlineTextView"
             android:layout_below="@id/iterationTitleTextView"
             tools:text="10/10/2017"/>
+        <TextView
+            android:id="@+id/iterationDescriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textDeadlineTextView"
+            android:padding="10dp"
+            android:textSize="20sp"
+            tools:text="Description of the iteration that goes here right on these few lines that i have no inspiration what so ever to write"/>
+
+        <Button
+            android:id="@+id/viewFeaturesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iterationDescriptionTextView"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:text="@string/view_features"/>
+        <Button
+            android:id="@+id/editIterationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iterationDescriptionTextView"
+            android:layout_toEndOf="@+id/viewFeaturesButton"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:textColor="@color/colorGrey600"
+            android:text="@string/edit_details"/>
+        <Button
+            android:id="@+id/removeIterationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iterationDescriptionTextView"
+            android:layout_toEndOf="@+id/editIterationButton"
+            android:textColor="@color/colorAccentOrange"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:text="@string/remove"/>
 
     </RelativeLayout>
 

@@ -16,23 +16,24 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/featureDescriptionTextView"
             android:padding="10dp"
             android:textSize="20sp"
-            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="This is a really long feature that has to be implemented ASAP or else..." />
 
         <LinearLayout
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorGrey900"
                 android:text="@string/progress"/>
             <TextView
                 android:layout_marginStart="5dp"
@@ -45,23 +46,35 @@
                 android:layout_height="wrap_content"
                 android:text="@string/percent_symbol"/>
         </LinearLayout>
+
+
         <LinearLayout
+            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <Button
                 android:id="@+id/featureViewTaskButton"
+                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/view_tasks"/>
+            <Button
+                android:id="@+id/featureEditFeatureButton"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="view tasks"/>
+                android:textColor="@color/colorGrey600"
+                android:text="@string/edit_details"/>
             <Button
-                android:id="@+id/featureEditFeatureButton"
+                android:id="@+id/removeFeatureButton"
                 style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="edit feature"/>
+                android:textColor="@color/colorAccentOrange"
+                android:text="@string/remove"/>
         </LinearLayout>
+
 
 
     </LinearLayout>

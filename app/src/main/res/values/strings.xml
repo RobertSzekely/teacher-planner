@@ -47,4 +47,14 @@
     <string name="status">Status:</string>
     <string name="features">Features</string>
     <string name="title_activity_feature_list">FeatureListActivity</string>
+    <string name="edit_task">edit task</string>
+    <string name="view_tasks">view tasks</string>
+    <string name="edit_feature">edit feature</string>
+    <string name="title_activity_task_list">TaskListActivity</string>
+    <string name="iterations">Iterations</string>
+    <string name="tasks">Tasks</string>
+    <string name="iteration_details">Iteration Details</string>
+    <string name="remove">remove</string>
+    <string name="edit_details">edit details</string>
+    <string name="view_features">view features</string>
 </resources>

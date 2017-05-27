@@ -3,6 +3,7 @@ package com.example.robertszekely.teacherplanner.activity;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 
@@ -13,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +40,9 @@ public class IterationListActivity extends BaseActivity {
 
     private Query mQueryCurrentStudentIterations;
 
-    private static final int COLOR_OPEN_STATUS =  Color.rgb(255, 132, 2);
+    private String studentKey;
+
+    private static final int COLOR_OPEN_STATUS = Color.rgb(255, 132, 2);
     private static final int COLOR_IN_PROGRESS_STATUS = Color.rgb(0, 182, 255);
     private static final int COLOR_RESOLVED_STATUS = Color.rgb(14, 214, 0);
     private static final int COLOR_CLOSED_STATUS = Color.rgb(72, 0, 255);
@@ -60,11 +64,13 @@ public class IterationListActivity extends BaseActivity {
             }
         });
 
-        Student student = (Student) getIntent().getExtras().getSerializable(STUDENT_BUNDLE_KEY);
+//        Student student = (Student) getIntent().getExtras().getSerializable(STUDENT_BUNDLE_KEY);
+        studentKey = (String) getIntent().getExtras().getSerializable(STUDENT_BUNDLE_KEY);
 
-        if (student != null) {
-            String mStudentKey = student.getUid();
-            mQueryCurrentStudentIterations = mIterationReference.orderByChild("studentId").equalTo(mStudentKey);
+        if (studentKey != null) {
+            Log.d(TAG, "Received student key: " + studentKey);
+//            String mStudentKey = student.getUid();
+            mQueryCurrentStudentIterations = mIterationReference.orderByChild("studentId").equalTo(studentKey);
             setRecyclerView();
             setAdapter();
         } else {
@@ -96,25 +102,30 @@ public class IterationListActivity extends BaseActivity {
             @Override
             protected void populateViewHolder(final IterationViewHolder viewHolder, final Iteration model, final int position) {
 
-                final String iteration_key = getRef(position).getKey();
+//                final String iteration_key = getRef(position).getKey();
 
                 viewHolder.setIterationTitle(model.getIterationName());
+
+                //TODO add date to iteration
                 Date date = new Date();
                 date.getDate();
 
                 viewHolder.setIterationTitle(model.getIterationName());
                 viewHolder.setIterationDeadline(date);
+                viewHolder.setIterationDescription(model.getContent());
+
+                //TODO add status to iteration
                 int random = randInt(0, 3);
                 viewHolder.setIterationStatus(random);
 
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Log.w(TAG, "You clicked on " + model.getIterationName());
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable(ITERAION_BUNDLE_KEY, model);
-                        navigateToActivity(IterationDetailsActivity.class, bundle);
 
+                viewHolder.viewFeaturesButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(ITERAION_BUNDLE_KEY, model.getIterationId());
+                        navigateToActivity(FeatureListActivity.class, bundle);
+                        Log.d(TAG, "Sent iteration: " + model.toString());
                     }
                 });
 
@@ -128,9 +139,20 @@ public class IterationListActivity extends BaseActivity {
     public static class IterationViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
-        @BindView(R.id.iterationTitleTextView) TextView mIterationTitle;
-        @BindView(R.id.iterationDeadlineTextView) TextView mIterationDeadline;
-        @BindView(R.id.iterationStatusTextView) TextView mIterationStatus;
+        @BindView(R.id.iterationTitleTextView)
+        TextView mIterationTitle;
+        @BindView(R.id.iterationDeadlineTextView)
+        TextView mIterationDeadline;
+        @BindView(R.id.iterationStatusTextView)
+        TextView mIterationStatus;
+        @BindView(R.id.iterationDescriptionTextView)
+        TextView mIterationDescription;
+        @BindView(R.id.viewFeaturesButton)
+        Button viewFeaturesButton;
+        @BindView(R.id.editIterationButton)
+        Button editIterationButton;
+        @BindView(R.id.removeIterationButton)
+        Button removeIterationButton;
 
         public IterationViewHolder(View itemView) {
             super(itemView);
@@ -143,10 +165,15 @@ public class IterationListActivity extends BaseActivity {
         }
 
         private void setIterationDeadline(Date date) {
-            DateFormat df =  new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
             String formattedDate = df.format(date);
             mIterationDeadline.setText(formattedDate);
         }
+
+        private void setIterationDescription(String description) {
+            mIterationDescription.setText(description);
+        }
+
         private void setIterationStatus(int status) {
             if (status == 1) {
                 mIterationStatus.setText(R.string.inprogress_status);
@@ -154,7 +181,7 @@ public class IterationListActivity extends BaseActivity {
             } else if (status == 2) {
                 mIterationStatus.setText(R.string.resolved_status);
 //                mIterationStatus.setTextColor(COLOR_RESOLVED_STATUS);
-            } else if(status == 3) {
+            } else if (status == 3) {
                 mIterationStatus.setText(R.string.closed_status);
 //                mIterationStatus.setTextColor(COLOR_CLOSED_STATUS);
             } else {

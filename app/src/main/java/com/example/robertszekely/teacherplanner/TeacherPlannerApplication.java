@@ -13,6 +13,7 @@ public class TeacherPlannerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 
 }

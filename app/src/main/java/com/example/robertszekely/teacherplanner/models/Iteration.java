@@ -28,5 +28,11 @@ public class Iteration implements Serializable {
         this.completed = completed;
     }
 
-
+    @Override
+    public String toString() {
+        return "Iteration{" +
+                "iterationId='" + iterationId + '\'' +
+                ", iterationName='" + iterationName + '\'' +
+                '}';
+    }
 }
