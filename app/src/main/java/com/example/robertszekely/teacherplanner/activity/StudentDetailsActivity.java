@@ -20,6 +20,8 @@ public class StudentDetailsActivity extends BaseActivity {
 
     private static final String TAG = StudentDetailsActivity.class.getSimpleName();
 
+    public static final String EXTRA_STUDENT_KEY = "student_key";
+
     @BindView(R.id.nameTextView) TextView mNameTextView;
     @BindView(R.id.emailTextView) TextView mEmailTextView;
     @BindView(R.id.phoneNumberTextView) TextView mPhoneTextView;

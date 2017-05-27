@@ -6,41 +6,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="start"
     app:contentPadding="15dp"
+    android:layout_margin="8dp"
     android:foreground="?selectableItemBackground"
     android:clickable="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/studentNameTextView"
+        <ImageView
+            android:id="@+id/row_student_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/profilePhotoImageView"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:textAlignment="viewStart"
-            android:textSize="20sp"
-            tools:text="James Arthur"/>
-
-        <TextView
-            android:id="@+id/studentEmailTextView"
+            android:src="@drawable/ic_account_circle_48dp"
+            android:layout_gravity="center"/>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/studentNameTextView"
-            android:paddingBottom="5dp"
-            android:text="email@something.com"
-            android:textColor="@color/com_facebook_button_background_color_disabled" />
-        <TextView
-            android:id="@+id/studentPhoneTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/studentEmailTextView"
-            android:paddingBottom="5dp"
-            android:text="(0752) 124 532"
-            android:textColor="@color/com_facebook_button_background_color_disabled" />
+            android:orientation="vertical"
+            android:layout_marginStart="13dp">
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/row_name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/row_student_photo"
+                android:layout_marginTop="7dp"
+                android:textSize="20sp"
+                tools:text="James Arthur"/>
+
+            <TextView
+                android:id="@+id/row_email_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/row_student_photo"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:text="email@something.com"
+                android:textColor="@color/com_facebook_button_background_color_disabled" />
+
+            <TextView
+                android:id="@+id/row_phone_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/row_email_text_view"
+                android:layout_marginTop="10dp"
+                android:text="(0752) 124 532"
+                android:textColor="@color/com_facebook_button_background_color_disabled" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>
