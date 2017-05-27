@@ -1,6 +1,7 @@
 package com.example.robertszekely.teacherplanner.activity;
 
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 import com.example.robertszekely.teacherplanner.R;
 import com.example.robertszekely.teacherplanner.models.Student;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.Query;
 
 import butterknife.BindView;
@@ -84,6 +88,7 @@ public class StudentListActivity extends BaseActivity {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(STUDENT_BUNDLE_KEY, model.getUid());
                     navigateToActivity(StudentDetailsActivity.class, bundle);
+                    overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                     Log.d(TAG, "Student sent:" + model.toString());
                 }
             });
@@ -121,5 +126,24 @@ public class StudentListActivity extends BaseActivity {
         }
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int i = item.getItemId();
+        if(i == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 }
