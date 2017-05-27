@@ -59,4 +59,8 @@
     <string name="edit_details">edit details</string>
     <string name="view_features">view features</string>
     <string name="menu_logout">Log out</string>
+    <string name="name_hint">Name</string>
+    <string name="email_hint">Email</string>
+    <string name="phone_hint">Phone</string>
+    <string name="group_hint">Group</string>
 </resources>

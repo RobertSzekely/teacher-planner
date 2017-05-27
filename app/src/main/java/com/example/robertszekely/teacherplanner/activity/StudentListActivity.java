@@ -100,7 +100,7 @@ public class StudentListActivity extends BaseActivity {
     }
 
     private void addNewStudent() {
-        Toast.makeText(this, "Add new student", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(StudentListActivity.this, NewStudentActivity.class));
     }
 
 

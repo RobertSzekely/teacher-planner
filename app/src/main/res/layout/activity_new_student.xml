@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="32dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    tools:context="com.example.robertszekely.teacherplanner.activity.NewStudentActivity">
+
+    <EditText
+        android:id="@+id/field_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name_hint"
+        android:inputType="textPersonName"
+        android:maxLines="1" />
+
+    <EditText
+        android:id="@+id/field_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/field_name"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="16dp"
+        android:hint="@string/email_hint"
+        android:maxLines="1" />
+
+    <EditText
+        android:id="@+id/field_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/field_email"
+        android:inputType="phone"
+        android:layout_marginTop="16dp"
+        android:hint="@string/phone_hint"
+        android:maxLines="1" />
+
+    <EditText
+        android:id="@+id/field_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/field_phone_number"
+        android:layout_marginTop="16dp"
+        android:hint="@string/group_hint"
+        android:maxLines="1" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_submit_new_student"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_check_white_24dp"/>
+
+
+</RelativeLayout>

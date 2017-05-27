@@ -4,38 +4,39 @@ package com.example.robertszekely.teacherplanner.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.io.Serializable;
 
 import lombok.*;
 
-
+@IgnoreExtraProperties
 public class Student {
-    private String phoneNumber;
-    private String email;
-    private String name;
-    private String password;
-    private double progress;
-    private String teacherId;
     private String uid;
+    private String name;
+    private String email;
+    private String phoneNumber;
+    private String group;
+    private double progress = 0;
 
     public Student() {
+        //Default constructor required for calls to DataSnapshop.getValue(Student.class)
     }
 
-    public Student(String email, String name, String password, double progress, String teacherId, String uid) {
-        this.email = email;
-        this.name = name;
-        this.password = password;
-        this.progress = progress;
-        this.teacherId = teacherId;
+    public Student(String uid, String name, String email, String phoneNumber, String group) {
         this.uid = uid;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
+        this.name = name;
         this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.group = group;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getName() {
@@ -46,12 +47,28 @@ public class Student {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public double getProgress() {
@@ -60,21 +77,5 @@ public class Student {
 
     public void setProgress(double progress) {
         this.progress = progress;
-    }
-
-    public String getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 }
