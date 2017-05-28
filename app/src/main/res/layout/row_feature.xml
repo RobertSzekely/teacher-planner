@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_gravity="start"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="30dp"
-    app:contentPadding="20dp"
+    android:layout_gravity="start"
     android:layout_margin="8dp"
+    android:clickable="true"
     android:foreground="?selectableItemBackground"
-    android:clickable="true">
+    android:padding="30dp"
+    app:contentPadding="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,64 +18,67 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/featureDescriptionTextView"
-            android:padding="10dp"
-            android:textSize="20sp"
+            android:id="@+id/feature_body_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="20sp"
             tools:text="This is a really long feature that has to be implemented ASAP or else..." />
 
         <LinearLayout
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/colorGrey900"
-                android:text="@string/progress"/>
+                android:text="@string/progress"
+                style="@style/TextAppearance.AppCompat"/>
+
             <TextView
+                android:id="@+id/feature_progress_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:id="@+id/featureProgressTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="70"/>
+                tools:text="70" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/percent_symbol"/>
+                android:text="@string/percent_symbol" />
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+
             <Button
-                android:id="@+id/featureViewTaskButton"
+                android:id="@+id/button_view_tasks"
                 style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/view_tasks"/>
+                android:text="@string/view_tasks" />
+
             <Button
-                android:id="@+id/featureEditFeatureButton"
+                android:id="@+id/button_edit_feature"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorGrey600"
-                android:text="@string/edit_details"/>
+                android:text="@string/edit_details"
+                android:textColor="@color/colorGrey600" />
+
             <Button
-                android:id="@+id/removeFeatureButton"
+                android:id="@+id/button_remove_feature"
                 style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textColor="@color/colorAccentOrange"
-                android:text="@string/remove"/>
+                android:text="@string/remove"
+                android:textColor="@color/colorAccentOrange" />
         </LinearLayout>
-
-
 
     </LinearLayout>
 
