@@ -73,17 +73,17 @@ public class NewStudentActivity extends BaseActivity {
             return;
         }
         //Email is required
-        if(TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(email)) {
             mEmailField.setError(REQUIRED);
             return;
         }
         //phoneNumber is required
-        if(TextUtils.isEmpty(phoneNumber)) {
+        if (TextUtils.isEmpty(phoneNumber)) {
             mPhoneNumberField.setError(REQUIRED);
             return;
         }
         //group is required
-        if(TextUtils.isEmpty(group)) {
+        if (TextUtils.isEmpty(group)) {
             mGroupField.setError(REQUIRED);
             return;
         }
@@ -100,7 +100,7 @@ public class NewStudentActivity extends BaseActivity {
                         //Get user value
                         User user = dataSnapshot.getValue(User.class);
 
-                        if(user == null) {
+                        if (user == null) {
                             //User is null, error out
                             Log.e(TAG, "User: " + userId + "is unexpectedly null");
                             Toast.makeText(NewStudentActivity.this, "Error: could not fetch user.", Toast.LENGTH_SHORT).show();
@@ -135,11 +135,21 @@ public class NewStudentActivity extends BaseActivity {
     }
 
     private void writeNewStudent(String userId, String name, String email, String phoneNumber, String group) {
-        // Create new student at /user-student/$userid/$studentid
-        String key = mDatabase.child("user-students").child(userId).push().getKey();
+//        // Create new student at /user-student/$userid/$studentid
+//        String key = mDatabase.child("user-students").child(userId).push().getKey();
+//        Student student = new Student(userId, name, email, phoneNumber, group);
+//        mDatabase.child("user-students").child(userId).child(key).setValue(student);
+
+        // Create new student at /user-student/$userid/$studentid and at
+        // /students/$studentid simultaneously
+        String key = mDatabase.child("students").push().getKey();
         Student student = new Student(userId, name, email, phoneNumber, group);
 
-        mDatabase.child("user-students").child(userId).child(key).setValue(student);
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/students/" + key, student);
+        childUpdates.put("/user-students/" + userId + "/" + key, student);
+
+        mDatabase.updateChildren(childUpdates);
     }
 
 }

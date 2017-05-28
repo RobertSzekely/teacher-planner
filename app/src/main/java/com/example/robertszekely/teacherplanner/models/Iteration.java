@@ -21,17 +21,20 @@ import lombok.*;
 
 public class Iteration {
 
+    private String studentId;
     private String title;
     private String body;
+    private String deadline;
     private double progress = 0;
-    private Date deadline;
+
 //    private final String status;
 
     public Iteration() {
         //Default constructor required for calls to DataSnapshot.getValue(Iteration.class)
     }
 
-    public Iteration(String title, String body, Date deadline) {
+    public Iteration(String studentId, String title, String body, String deadline) {
+        this.studentId = studentId;
         this.title = title;
         this.body = body;
         this.deadline = deadline;
@@ -48,6 +51,13 @@ public class Iteration {
 //    public @interface IterationStatusDef{ }
 
 
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
 
     public String getTitle() {
         return title;
@@ -73,11 +83,11 @@ public class Iteration {
         this.progress = progress;
     }
 
-    public Date getDeadline() {
+    public String getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 }

@@ -40,7 +40,7 @@ public class IterationViewHolder extends RecyclerView.ViewHolder {
     public void bindToIteration(Iteration iteration, View.OnClickListener buttonsClickListener) {
         mIterationTitle.setText(iteration.getTitle());
         mIterationBody.setText(iteration.getBody());
-        //TODO dealine
+        mIterationDeadline.setText(iteration.getDeadline());
 
         viewFeaturesButton.setOnClickListener(buttonsClickListener);
         editIterationButton.setOnClickListener(buttonsClickListener);

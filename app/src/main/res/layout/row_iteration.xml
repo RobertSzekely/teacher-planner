@@ -50,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/iteration_title_view"
             android:layout_toEndOf="@id/text_deadline_view"
+            android:paddingStart="10dp"
             tools:text="10/10/2017" />
 
         <TextView

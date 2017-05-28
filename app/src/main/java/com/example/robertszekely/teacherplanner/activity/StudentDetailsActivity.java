@@ -99,7 +99,7 @@ public class StudentDetailsActivity extends BaseActivity {
     public void seeIterationsForCurrentStudent() {
         Log.d(TAG, "Clicked iterations button");
         Bundle bundle = new Bundle();
-        bundle.putSerializable(STUDENT_BUNDLE_KEY, studentKey);
+        bundle.putSerializable(EXTRA_STUDENT_KEY, studentKey);
         navigateToActivity(IterationListActivity.class, bundle);
     }
 
