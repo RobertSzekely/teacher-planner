@@ -117,38 +117,38 @@ public class IterationListFragment extends Fragment {
 
                 final String iteration_key = getRef(position).getKey();
 
-                viewHolder.setIterationName(model.getIterationName());
-                viewHolder.setIterationDetails(model.getContent());
-                viewHolder.setIterationCheckBox(model.isCompleted());
-                viewHolder.setIterationProgress(fmt(model.getProgress()));
-
-
-
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Log.w(TAG, "You clicked on " + position +"   "   +iteration_key);
-                                mCallBack.passIterationData(iteration_key);
-                            }
-                        });
-
-
-                viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (buttonView.isChecked()) {
-                            Log.w(TAG, "You checked on " + position);
-                            mIterationReference.child(model.getIterationId()).child("completed").setValue(true);
-                            mIterationReference.child(model.getIterationId()).child("progress").setValue(100);
-
-                        } else {
-                            Log.w(TAG, "You unchecked on " + position);
-                            mIterationReference.child(model.getIterationId()).child("completed").setValue(false);
-                            mIterationReference.child(model.getIterationId()).child("progress").setValue(0);
-                        }
-
-                    }
-                });
+//                viewHolder.setIterationName(model.getIterationName());
+//                viewHolder.setIterationDetails(model.getContent());
+//                viewHolder.setIterationCheckBox(model.isCompleted());
+//                viewHolder.setIterationProgress(fmt(model.getProgress()));
+//
+//
+//
+//                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                Log.w(TAG, "You clicked on " + position +"   "   +iteration_key);
+//                                mCallBack.passIterationData(iteration_key);
+//                            }
+//                        });
+//
+//
+//                viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                    @Override
+//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                        if (buttonView.isChecked()) {
+//                            Log.w(TAG, "You checked on " + position);
+//                            mIterationReference.child(model.getIterationId()).child("completed").setValue(true);
+//                            mIterationReference.child(model.getIterationId()).child("progress").setValue(100);
+//
+//                        } else {
+//                            Log.w(TAG, "You unchecked on " + position);
+//                            mIterationReference.child(model.getIterationId()).child("completed").setValue(false);
+//                            mIterationReference.child(model.getIterationId()).child("progress").setValue(0);
+//                        }
+//
+//                    }
+//                });
 
 
             }

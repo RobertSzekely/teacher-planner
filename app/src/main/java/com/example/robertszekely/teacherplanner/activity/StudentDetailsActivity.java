@@ -83,7 +83,7 @@ public class StudentDetailsActivity extends BaseActivity {
                     mEmailView.setText(student.getEmail());
                     mPhoneNumberView.setText(student.getPhoneNumber());
                     mGroupView.setText(student.getGroup());
-                    mProgressView.setProgress(student.getProgress());
+                    mProgressView.setProgress((int)student.getProgress());
                 }
 
                 @Override

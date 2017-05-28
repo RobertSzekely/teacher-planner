@@ -1,86 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_gravity="start"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="start"
     android:layout_margin="8dp"
-    android:padding="30dp"
-    app:contentPadding="20dp"
+    android:clickable="true"
     android:foreground="?selectableItemBackground"
-    android:clickable="true">
+    android:padding="30dp"
+    app:contentPadding="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:orientation="vertical">
+
         <TextView
-            android:id="@+id/iterationTitleTextView"
+            android:id="@+id/iteration_title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:padding="10dp"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            tools:text="Iteration Title"
-            android:layout_alignParentStart="true" />
+            tools:text="Iteration Title" />
+
         <TextView
-            android:id="@+id/iterationStatusTextView"
+            android:id="@+id/iteration_status_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:padding="10dp"
-            tools:text="COMPLETED"/>
+            tools:text="COMPLETED" />
+
         <TextView
-            android:id="@+id/textDeadlineTextView"
+            android:id="@+id/text_deadline_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/iterationTitleTextView"
+            android:layout_below="@id/iteration_title_view"
             android:layout_marginStart="10dp"
-            android:text="@string/deadline"/>
+            android:text="@string/deadline" />
+
         <TextView
-            android:id="@+id/iterationDeadlineTextView"
+            android:id="@+id/iteration_deadline_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/textDeadlineTextView"
-            android:layout_below="@id/iterationTitleTextView"
-            tools:text="10/10/2017"/>
+            android:layout_below="@id/iteration_title_view"
+            android:layout_toEndOf="@id/text_deadline_view"
+            tools:text="10/10/2017" />
+
         <TextView
-            android:id="@+id/iterationDescriptionTextView"
+            android:id="@+id/iteration_body_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textDeadlineTextView"
+            android:layout_below="@+id/text_deadline_view"
             android:padding="10dp"
             android:textSize="20sp"
-            tools:text="Description of the iteration that goes here right on these few lines that i have no inspiration what so ever to write"/>
+            tools:text="Description of the iteration that goes here right on these few lines that i have no inspiration what so ever to write" />
 
         <Button
-            android:id="@+id/viewFeaturesButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/iterationDescriptionTextView"
+            android:id="@+id/button_view_features"
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-            android:text="@string/view_features"/>
-        <Button
-            android:id="@+id/editIterationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iterationDescriptionTextView"
-            android:layout_toEndOf="@+id/viewFeaturesButton"
+            android:layout_below="@+id/iteration_body_view"
+            android:text="@string/view_features" />
+
+        <Button
+            android:id="@+id/button_edit_iteration"
             style="@style/Base.Widget.AppCompat.Button.Borderless"
-            android:textColor="@color/colorGrey600"
-            android:text="@string/edit_details"/>
-        <Button
-            android:id="@+id/removeIterationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iterationDescriptionTextView"
-            android:layout_toEndOf="@+id/editIterationButton"
-            android:textColor="@color/colorAccentOrange"
+            android:layout_below="@+id/iteration_body_view"
+            android:layout_toEndOf="@+id/button_view_features"
+            android:text="@string/edit_details"
+            android:textColor="@color/colorGrey600" />
+
+        <Button
+            android:id="@+id/button_remove_iteration"
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-            android:text="@string/remove"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iteration_body_view"
+            android:layout_toEndOf="@+id/button_edit_iteration"
+            android:text="@string/remove"
+            android:textColor="@color/colorAccentOrange" />
 
     </RelativeLayout>
 

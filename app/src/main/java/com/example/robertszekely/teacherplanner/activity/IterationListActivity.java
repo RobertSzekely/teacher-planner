@@ -1,5 +1,6 @@
 package com.example.robertszekely.teacherplanner.activity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -18,12 +19,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.robertszekely.teacherplanner.R;
 import com.example.robertszekely.teacherplanner.models.Iteration;
 import com.example.robertszekely.teacherplanner.models.Student;
+import com.example.robertszekely.teacherplanner.viewholder.IterationViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.Query;
@@ -36,7 +39,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class IterationListActivity extends BaseActivity {
+public class IterationListActivity extends BaseActivity{
 
     private static final String TAG = IterationListActivity.class.getSimpleName();
 
@@ -108,28 +111,46 @@ public class IterationListActivity extends BaseActivity {
 
 //                final String iteration_key = getRef(position).getKey();
 
-                viewHolder.setIterationTitle(model.getIterationName());
+//                viewHolder.setIterationTitle(model.getIterationName());
+//
+//                //TODO add date to iteration
+//                Date date = new Date();
+//                date.getDate();
+//
+//                viewHolder.setIterationTitle(model.getIterationName());
+//                viewHolder.setIterationDeadline(date);
+//                viewHolder.setIterationDescription(model.getContent());
+//
+//                //TODO add status to iteration
+//                int random = randInt(0, 3);
+//                viewHolder.setIterationStatus(random);
 
-                //TODO add date to iteration
-                Date date = new Date();
-                date.getDate();
 
-                viewHolder.setIterationTitle(model.getIterationName());
-                viewHolder.setIterationDeadline(date);
-                viewHolder.setIterationDescription(model.getContent());
-
-                //TODO add status to iteration
-                int random = randInt(0, 3);
-                viewHolder.setIterationStatus(random);
-
-
-                viewHolder.viewFeaturesButton.setOnClickListener(new View.OnClickListener() {
+//                viewHolder.viewFeaturesButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Bundle bundle = new Bundle();
+//                        bundle.putSerializable(ITERAION_BUNDLE_KEY, model.getIterationId());
+//                        navigateToActivity(FeatureListActivity.class, bundle);
+//                        Log.d(TAG, "Sent iteration: " + model.toString());
+//                    }
+//                });
+                viewHolder.bindToIteration(model, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable(ITERAION_BUNDLE_KEY, model.getIterationId());
-                        navigateToActivity(FeatureListActivity.class, bundle);
-                        Log.d(TAG, "Sent iteration: " + model.toString());
+                        switch (v.getId()) {
+                            case R.id.button_view_features:
+                                Log.d(TAG, "View features button");
+                                break;
+                            case R.id.button_edit_iteration:
+                                Log.d(TAG, "Edit iteration button");
+                                break;
+                            case R.id.button_remove_iteration:
+                                Log.d(TAG, "Remove iteration button");
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 });
 
@@ -157,63 +178,6 @@ public class IterationListActivity extends BaseActivity {
         } else {
             return super.onOptionsItemSelected(item);
         }
-    }
-
-
-    public static class IterationViewHolder extends RecyclerView.ViewHolder {
-
-        View mView;
-        @BindView(R.id.iterationTitleTextView)
-        TextView mIterationTitle;
-        @BindView(R.id.iterationDeadlineTextView)
-        TextView mIterationDeadline;
-        @BindView(R.id.iterationStatusTextView)
-        TextView mIterationStatus;
-        @BindView(R.id.iterationDescriptionTextView)
-        TextView mIterationDescription;
-        @BindView(R.id.viewFeaturesButton)
-        Button viewFeaturesButton;
-        @BindView(R.id.editIterationButton)
-        Button editIterationButton;
-        @BindView(R.id.removeIterationButton)
-        Button removeIterationButton;
-
-        public IterationViewHolder(View itemView) {
-            super(itemView);
-            mView = itemView;
-            ButterKnife.bind(this, itemView);
-        }
-
-        private void setIterationTitle(String name) {
-            mIterationTitle.setText(name);
-        }
-
-        private void setIterationDeadline(Date date) {
-            DateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            String formattedDate = df.format(date);
-            mIterationDeadline.setText(formattedDate);
-        }
-
-        private void setIterationDescription(String description) {
-            mIterationDescription.setText(description);
-        }
-
-        private void setIterationStatus(int status) {
-            if (status == 1) {
-                mIterationStatus.setText(R.string.inprogress_status);
-//                mIterationStatus.setTextColor(COLOR_IN_PROGRESS_STATUS);
-            } else if (status == 2) {
-                mIterationStatus.setText(R.string.resolved_status);
-//                mIterationStatus.setTextColor(COLOR_RESOLVED_STATUS);
-            } else if (status == 3) {
-                mIterationStatus.setText(R.string.closed_status);
-//                mIterationStatus.setTextColor(COLOR_CLOSED_STATUS);
-            } else {
-                mIterationStatus.setText(R.string.open_status);
-//                mIterationStatus.setTextColor(COLOR_OPEN_STATUS);
-            }
-        }
-
     }
 
 }

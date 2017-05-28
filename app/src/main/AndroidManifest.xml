@@ -54,11 +54,12 @@
         <activity
             android:name=".activity.TaskListActivity"
             android:label="@string/tasks"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.NewStudentActivity"
             android:label="@string/new_student"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.NewIterationActivity"></activity>
     </application>
 
 </manifest>

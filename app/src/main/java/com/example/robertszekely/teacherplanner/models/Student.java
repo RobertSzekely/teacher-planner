@@ -17,7 +17,7 @@ public class Student {
     private String email;
     private String phoneNumber;
     private String group;
-    private int progress = 0;
+    private double progress = 0;
 
     public Student() {
         //Default constructor required for calls to DataSnapshop.getValue(Student.class)
@@ -71,7 +71,7 @@ public class Student {
         this.group = group;
     }
 
-    public int getProgress() {
+    public double getProgress() {
         return progress;
     }
 

@@ -118,16 +118,16 @@ public class BaseActivity  extends AppCompatActivity {
 //        mTeacherReference.child(teacher1.getTeacherId()).setValue(teacher1);
 
     }
-    public void addIteration() {
-        Iteration iteration1 = new Iteration(generateId(), "Iteration1", "Description of iteration one from the iteration list", "2757cc9b-176a-4e01-ae85-79d5184eaa65", false);
-        Iteration iteration2 = new Iteration(generateId(), "Iteration2", "Description of iteration two from the iteration list", "2757cc9b-176a-4e01-ae85-79d5184eaa65", false);
-        Iteration iteration3 = new Iteration(generateId(), "Iteration3", "Description of iteration three from the iteration list", "2757cc9b-176a-4e01-ae85-79d5184eaa65", false);
-        Iteration iteration4 = new Iteration(generateId(), "Iteration4", "Description of iteration four from the iteration list","2757cc9b-176a-4e01-ae85-79d5184eaa65", false);
-        mIterationReference.child(iteration1.getIterationId()).setValue(iteration1);
-        mIterationReference.child(iteration2.getIterationId()).setValue(iteration2);
-        mIterationReference.child(iteration3.getIterationId()).setValue(iteration3);
-        mIterationReference.child(iteration4.getIterationId()).setValue(iteration4);
-    }
+//    public void addIteration() {
+//        Iteration iteration1 = new Iteration(generateId(), "Iteration1", "Description of iteration one from the iteration list", "2757cc9b-176a-4e01-ae85-79d5184eaa65", false);
+//        Iteration iteration2 = new Iteration(generateId(), "Iteration2", "Description of iteration two from the iteration list", "2757cc9b-176a-4e01-ae85-79d5184eaa65", false);
+//        Iteration iteration3 = new Iteration(generateId(), "Iteration3", "Description of iteration three from the iteration list", "2757cc9b-176a-4e01-ae85-79d5184eaa65", false);
+//        Iteration iteration4 = new Iteration(generateId(), "Iteration4", "Description of iteration four from the iteration list","2757cc9b-176a-4e01-ae85-79d5184eaa65", false);
+//        mIterationReference.child(iteration1.getIterationId()).setValue(iteration1);
+//        mIterationReference.child(iteration2.getIterationId()).setValue(iteration2);
+//        mIterationReference.child(iteration3.getIterationId()).setValue(iteration3);
+//        mIterationReference.child(iteration4.getIterationId()).setValue(iteration4);
+//    }
 
     public void addFeatures() {
         Feature feature1 = new Feature(generateId(), "Feature1" , "Description of iteration one from the iteration list", "4472ab46-c308-40d9-ab76-98d51d8aa53c", false, 0);
