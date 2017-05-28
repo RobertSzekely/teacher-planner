@@ -42,24 +42,23 @@
         <activity
             android:name=".activity.StudentDetailsActivity"
             android:label="@string/title_student_details_activity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.IterationListActivity"
             android:label="@string/iterations"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.IterationDetailsActivity"
-            android:label="@string/iteration_details"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.FeatureListActivity"
             android:label="@string/features"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.TaskListActivity"
             android:label="@string/tasks"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".activity.NewStudentActivity"></activity>
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".activity.NewStudentActivity"
+            android:label="@string/new_student"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

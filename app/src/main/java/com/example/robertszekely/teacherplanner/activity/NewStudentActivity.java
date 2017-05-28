@@ -135,16 +135,11 @@ public class NewStudentActivity extends BaseActivity {
     }
 
     private void writeNewStudent(String userId, String name, String email, String phoneNumber, String group) {
-        // Create new student at /user-student/$userid/$studentid and at
-        // /students/$studentid simultaneously
-        String key = mDatabase.child("students").push().getKey();
+        // Create new student at /user-student/$userid/$studentid
+        String key = mDatabase.child("user-students").child(userId).push().getKey();
         Student student = new Student(userId, name, email, phoneNumber, group);
 
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/students/" + key, student);
-        childUpdates.put("/user-students/" + userId + "/" +key, student);
-
-        mDatabase.updateChildren(childUpdates);
+        mDatabase.child("user-students").child(userId).child(key).setValue(student);
     }
 
 }

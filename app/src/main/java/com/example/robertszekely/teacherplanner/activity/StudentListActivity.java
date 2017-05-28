@@ -41,7 +41,7 @@ public class StudentListActivity extends BaseActivity {
 
     @BindView(R.id.studentRecyclerView)
     RecyclerView mRecycler;
-    @BindView(R.id.fab)
+    @BindView(R.id.fab_new_student)
     FloatingActionButton addStudentBtn;
 
     @Override
@@ -79,6 +79,7 @@ public class StudentListActivity extends BaseActivity {
                         //Launch StudentDetailActivity
                         Intent intent = new Intent(StudentListActivity.this, StudentDetailsActivity.class);
                         intent.putExtra(StudentDetailsActivity.EXTRA_STUDENT_KEY, studentKey);
+                        Log.d(TAG, "Sent student key: " + studentKey);
                         startActivity(intent);
                     }
                 });

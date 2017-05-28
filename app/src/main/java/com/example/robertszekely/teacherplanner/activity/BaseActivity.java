@@ -1,24 +1,20 @@
 package com.example.robertszekely.teacherplanner.activity;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.robertszekely.teacherplanner.R;
-import com.example.robertszekely.teacherplanner.fragment.StudentListFragment;
 import com.example.robertszekely.teacherplanner.models.Feature;
 import com.example.robertszekely.teacherplanner.models.Iteration;
-import com.example.robertszekely.teacherplanner.models.Student;
 import com.example.robertszekely.teacherplanner.models.Task;
 import com.example.robertszekely.teacherplanner.models.Teacher;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -91,16 +87,6 @@ public class BaseActivity  extends AppCompatActivity {
                 .replace(R.id.container, fragmentClass)
                 .addToBackStack(null)
                 .commit();
-    }
-
-    public void navigateToStudentListFragment() {
-        StudentListFragment studentListFragment = new StudentListFragment();
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.
-                replace(R.id.container, studentListFragment).
-                addToBackStack(null).
-                commit();
     }
 
     public void addTeacher() {

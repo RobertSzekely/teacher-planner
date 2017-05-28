@@ -26,7 +26,7 @@
     <string name="title_activity_note">NoteActivity</string>
     <string name="title_note_list">Notes</string>
     <string name="title_note_detail">Note Detail</string>
-    <string name="progress">Progress:</string>
+    <string name="progress">Progress</string>
     <string name="percent">%</string>
 
     <string name="title_student_details_activity">Student Details</string>
@@ -63,4 +63,9 @@
     <string name="email_hint">Email</string>
     <string name="phone_hint">Phone</string>
     <string name="group_hint">Group</string>
+    <string name="view_iterations">View iterations</string>
+    <string name="view_meetings">View Meetings</string>
+    <string name="call_number">Call Number</string>
+    <string name="send_email">Send email</string>
+    <string name="new_student">New Student</string>
 </resources>
