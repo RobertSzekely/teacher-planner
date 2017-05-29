@@ -93,6 +93,7 @@ public class FeatureListActivity extends BaseActivity {
                                 Log.d(TAG, "View tasks button " + model.getBody());
                                 Intent intent = new Intent(FeatureListActivity.this, TaskListActivity.class);
                                 intent.putExtra(TaskListActivity.EXTRA_FEATURE_KEY, featureKey);
+                                intent.putExtra(TaskListActivity.EXTRA_ITERATION_KEY, iterationKey);
                                 startActivity(intent);
                                 Log.d(TAG, "Sent feature key: " + featureKey);
                                 break;

@@ -58,38 +58,38 @@ public class TaskListFragment extends Fragment {
             Toast.makeText(getContext(), "Something went wrong :(", Toast.LENGTH_SHORT).show();
         }
 //
-//        mCurrentFeatureQuery.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                List<Task> completedTaskList = new ArrayList<>();
-//                int totalTasks = 0;
-//                for(DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
-//                    totalTasks++;
-//                    Task task = taskSnapshot.getValue(Task.class);
-//                    if(task.isCompleted()) {
-//                        completedTaskList.add(task);
-//                    }
-//                }
-//                float progress;
-//                if(completedTaskList.isEmpty()) {
-//                    progress = 0;
+        mCurrentFeatureQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Task> completedTaskList = new ArrayList<>();
+                int totalTasks = 0;
+                for(DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
+                    totalTasks++;
+                    Task task = taskSnapshot.getValue(Task.class);
+                    if(task.isCompleted()) {
+                        completedTaskList.add(task);
+                    }
+                }
+                float progress;
+                if(completedTaskList.isEmpty()) {
+                    progress = 0;
+                } else {
+                    progress = completedTaskList.size()*100/totalTasks;
+                }
+                mFeatureRef.child(mFeatureId).child("progress").setValue(progress);
+
+//                if(progress == 100) {
+//                    mFeatureRef.child(mFeatureId).child("completed").setValue(true);
 //                } else {
-//                    progress = completedTaskList.size()*100/totalTasks;
+//                    mFeatureRef.child(mFeatureId).child("completed").setValue(false);
 //                }
-//                mFeatureRef.child(mFeatureId).child("progress").setValue(progress);
-//
-////                if(progress == 100) {
-////                    mFeatureRef.child(mFeatureId).child("completed").setValue(true);
-////                } else {
-////                    mFeatureRef.child(mFeatureId).child("completed").setValue(false);
-////                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         //setting recyclerview
         RecyclerView taskRecyclerView = (RecyclerView) rootView.findViewById(R.id.generalRecyclerView);

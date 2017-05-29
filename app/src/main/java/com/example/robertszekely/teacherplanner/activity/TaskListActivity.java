@@ -25,9 +25,14 @@ import com.example.robertszekely.teacherplanner.models.Task;
 import com.example.robertszekely.teacherplanner.viewholder.TaskViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,12 +45,14 @@ public class TaskListActivity extends BaseActivity {
     private static final String TAG = TaskListActivity.class.getSimpleName();
 
     public static final String EXTRA_FEATURE_KEY = "feature_key";
+    public static final String EXTRA_ITERATION_KEY = "iteration_key";
 
     private DatabaseReference mDatabase;
     private FirebaseRecyclerAdapter<Task, TaskViewHolder> mAdapter;
     private LinearLayoutManager mManager;
 
     private String featureKey;
+    private String iterationKey;
 
     @BindView(R.id.task_recycler_view)
     RecyclerView mRecycler;
@@ -65,6 +72,7 @@ public class TaskListActivity extends BaseActivity {
 
         // Gets the feature key from the previous activity
         featureKey = (String) getIntent().getExtras().getSerializable(EXTRA_FEATURE_KEY);
+        iterationKey = (String) getIntent().getExtras().getSerializable(EXTRA_ITERATION_KEY);
 
         //results tasks for current feature
         Query taskQuery = mDatabase.child("feature-tasks").child(featureKey);
@@ -87,13 +95,24 @@ public class TaskListActivity extends BaseActivity {
                         switch (v.getId()) {
                             case R.id.button_edit_task:
                                 Log.d(TAG, "Edit taks button: " + model.getBody());
+                                //TODO
                                 break;
                             case R.id.button_remove_task:
                                 Log.d(TAG, "Remove task button: " + model.getBody());
+                                //TODO
                                 break;
                             case R.id.checkbox_task:
                                 Log.d(TAG, "Task checkbox :" + model.getBody());
-                                taskCheckBox(taskKey, viewHolder.mCompletedCheckBox.isChecked());
+                                //Need to write to both places where task is stored
+                                DatabaseReference globalTaskRef = mDatabase.child("tasks").child(taskKey);
+                                DatabaseReference featureTaskRef = mDatabase.child("feature-tasks").child(featureKey).child(taskKey);
+
+                                final Boolean checked = viewHolder.mCompletedCheckBox.isChecked();
+
+                                //Run two transactions
+                                onTaskCheckboxClicked(globalTaskRef, checked);
+                                onTaskCheckboxClicked(featureTaskRef, checked);
+//                                onTaskCheckboxClicked(taskKey, checked);
                         }
                     }
                 });
@@ -101,6 +120,39 @@ public class TaskListActivity extends BaseActivity {
             }
         };
         mRecycler.setAdapter(mAdapter);
+
+        taskQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "A tag was updated");
+                int totalTasks=0, completedTasks=0;
+                for(DataSnapshot taskSnapshot: dataSnapshot.getChildren()) {
+                    totalTasks++;
+                    if (taskSnapshot.getValue(Task.class).isCompleted()) {
+                        completedTasks++;
+                    }
+                }
+                double progress;
+                if(totalTasks == 0) {
+                    progress = 0;
+                } else  {
+                    progress = completedTasks*100/totalTasks;
+                }
+                // update feature progress at /features/$featureid/progress
+                // and at /iteration-features/$iterationid/$featureid
+                mDatabase.child("features").child(featureKey).child("progress").setValue(progress);
+                mDatabase.child("iteration-features").child(iterationKey).child(featureKey).child("progress").setValue(progress);
+//                Log.d(TAG, "ITERAION KEY: " + iterationKey);
+//                Log.d(TAG, "Progress: " + String.valueOf((int)progress));
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +215,7 @@ public class TaskListActivity extends BaseActivity {
         mDatabase.updateChildren(childUpdates);
     }
 
-    private void taskCheckBox(String taskKey, Boolean checked) {
+    private void onTaskCheckboxClicked(String taskKey, Boolean checked) {
         // Update task completed value at /tasks/$taskid/completed and at
         // /feature-tasks/$featureid/$taskid/completed simultaneously
         HashMap<String, Object> childUpdates = new HashMap<>();
@@ -173,6 +225,29 @@ public class TaskListActivity extends BaseActivity {
         mDatabase.updateChildren(childUpdates);
     }
 
+    private void onTaskCheckboxClicked(DatabaseReference taskRef, final boolean checked) {
+        taskRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                Task t = mutableData.getValue(Task.class);
+                if (t == null) {
+                    return Transaction.success(mutableData);
+                }
+
+                t.setCompleted(checked);
+                //Set value and report transaction success
+                mutableData.setValue(t);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                // Transaction completed
+                Log.d(TAG, "taskTransaction:onComplete:" + databaseError);
+
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -102,6 +102,15 @@ public class StudentListActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mAdapter != null) {
+            mAdapter.cleanup();
+            Log.d(TAG, "onDestroy: mAdapter != null");
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;

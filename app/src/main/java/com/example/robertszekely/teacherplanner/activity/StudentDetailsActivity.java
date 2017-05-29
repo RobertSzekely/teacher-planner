@@ -34,25 +34,16 @@ public class StudentDetailsActivity extends BaseActivity {
 
     @BindView(R.id.details_student_first_name)
     TextView mFirstNameView;
-
     @BindView(R.id.details_student_last_name)
     TextView mLastNameView;
-
     @BindView(R.id.details_student_email)
     TextView mEmailView;
-
     @BindView(R.id.details_student_phone_number)
     TextView mPhoneNumberView;
-
     @BindView(R.id.details_student_group)
     TextView mGroupView;
-
     @BindView(R.id.details_student_progress_bar)
     ProgressBar mProgressView;
-//    @BindView(R.id.button_view_iterations)
-//    Button mViewIterationsButton;
-//    @BindView(R.id.button_view_meetings)
-//    Button mViewMeetingsButton;
 
     private String studentKey;
 
@@ -108,8 +99,18 @@ public class StudentDetailsActivity extends BaseActivity {
     }
 
     @OnClick(R.id.button_view_meetings)
-    public void addNewMeeting() {
+    public void viewMeetingsForCurrentStudent() {
         Log.d(TAG, "Clicked add meeting button");
+        //TODO
+    }
+
+    @OnClick(R.id.button_img_send_email)
+    public void emailStudent() {
+        //TODO
+    }
+
+    @OnClick(R.id.button_img_call)
+    public void callStudent() {
         //TODO
     }
 
