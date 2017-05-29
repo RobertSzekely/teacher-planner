@@ -21,7 +21,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.task_body_view)
     TextView mBodyView;
     @BindView(R.id.checkbox_task)
-    CheckBox mCompletedCheckBox;
+    public CheckBox mCompletedCheckBox;
     @BindView(R.id.button_edit_task)
     Button mEditButton;
     @BindView(R.id.button_remove_task)
@@ -34,6 +34,8 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
 
     public void bindToTask(Task task, View.OnClickListener buttonClickListener) {
         mBodyView.setText(task.getBody());
+
+        mCompletedCheckBox.setChecked(task.isCompleted());
 
         mCompletedCheckBox.setOnClickListener(buttonClickListener);
 

@@ -76,7 +76,10 @@ public class TaskListActivity extends BaseActivity {
                 taskQuery) {
 
             @Override
-            protected void populateViewHolder(TaskViewHolder viewHolder, final Task model, int position) {
+            protected void populateViewHolder(final TaskViewHolder viewHolder, final Task model, int position) {
+
+                final DatabaseReference taskRef = getRef(position);
+                final String taskKey = taskRef.getKey();
 
                 viewHolder.bindToTask(model, new View.OnClickListener() {
                     @Override
@@ -90,6 +93,7 @@ public class TaskListActivity extends BaseActivity {
                                 break;
                             case R.id.checkbox_task:
                                 Log.d(TAG, "Task checkbox :" + model.getBody());
+                                taskCheckBox(taskKey, viewHolder.mCompletedCheckBox.isChecked());
                         }
                     }
                 });
@@ -124,7 +128,7 @@ public class TaskListActivity extends BaseActivity {
             public void onClick(View v) {
                 //Check if body field is empty
                 final String body = mBodyField.getText().toString();
-                if(TextUtils.isEmpty(body)) {
+                if (TextUtils.isEmpty(body)) {
                     Toast.makeText(TaskListActivity.this, "Must fill in body", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(TaskListActivity.this, "Saving task...", Toast.LENGTH_SHORT).show();
@@ -159,6 +163,16 @@ public class TaskListActivity extends BaseActivity {
         mDatabase.updateChildren(childUpdates);
     }
 
+    private void taskCheckBox(String taskKey, Boolean checked) {
+        // Update task completed value at /tasks/$taskid/completed and at
+        // /feature-tasks/$featureid/$taskid/completed simultaneously
+        HashMap<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/tasks/" + taskKey + "/completed/", checked);
+        childUpdates.put("/feature-tasks/" + featureKey + "/" + taskKey + "/completed/", checked);
+
+        mDatabase.updateChildren(childUpdates);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -169,7 +183,7 @@ public class TaskListActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int i = item.getItemId();
-        if(i == R.id.action_logout) {
+        if (i == R.id.action_logout) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
@@ -178,9 +192,6 @@ public class TaskListActivity extends BaseActivity {
             return super.onOptionsItemSelected(item);
         }
     }
-
-
-
 
 
 }
