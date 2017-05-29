@@ -41,6 +41,7 @@ public class IterationViewHolder extends RecyclerView.ViewHolder {
         mIterationTitle.setText(iteration.getTitle());
         mIterationBody.setText(iteration.getBody());
         mIterationDeadline.setText(iteration.getDeadline());
+        mIterationStatus.setText(iteration.getStatus());
 
         viewFeaturesButton.setOnClickListener(buttonsClickListener);
         editIterationButton.setOnClickListener(buttonsClickListener);

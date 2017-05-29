@@ -25,9 +25,12 @@ import com.example.robertszekely.teacherplanner.models.Feature;
 import com.example.robertszekely.teacherplanner.viewholder.FeatureViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,12 +45,14 @@ public class FeatureListActivity extends BaseActivity {
     private static final String TAG = FeatureListActivity.class.getSimpleName();
 
     public static final String EXTRA_ITERATION_KEY = "iteration_key";
+    public static final String EXTRA_STUDENT_KEY = "student_key";
 
     private DatabaseReference mDatabase;
     private FirebaseRecyclerAdapter<Feature, FeatureViewHolder> mAdapter;
     private LinearLayoutManager mManager;
 
     private String iterationKey;
+    private String studentKey;
 
     @BindView(R.id.features_recycler_view)
     RecyclerView mRecycler;
@@ -69,6 +74,7 @@ public class FeatureListActivity extends BaseActivity {
 
         //Gets the iteration key from the previous activity
         iterationKey = (String) getIntent().getExtras().getSerializable(EXTRA_ITERATION_KEY);
+        studentKey = (String) getIntent().getExtras().getSerializable(EXTRA_STUDENT_KEY);
 
         //results features for current iteration
         final Query featureQuery = mDatabase.child("iteration-features").child(iterationKey);
@@ -113,6 +119,51 @@ public class FeatureListActivity extends BaseActivity {
         };
         mRecycler.setAdapter(mAdapter);
 
+        featureQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int totalFeatures = 0;
+                double totalFeaturesProgress = 0;
+                Feature feature;
+                for (DataSnapshot featureSnapshot : dataSnapshot.getChildren()) {
+                    totalFeatures++;
+                    feature = featureSnapshot.getValue(Feature.class);
+                    totalFeaturesProgress += feature.getProgress();
+                }
+                double progress = 0;
+                if (totalFeatures == 0) {
+                    progress = 0;
+                } else {
+                    progress = totalFeaturesProgress / totalFeatures;
+                }
+                String status;
+                if (progress == 0) {
+                    status = "Open";
+                } else if (progress > 0 && progress < 100) {
+                    status = "In Progress";
+                } else {
+                    status = "Closed";
+                }
+                Map<String, Object> childUpdates = new HashMap<>();
+                // Update iteration progress at /iterations/$iterationid/progress
+                // and at /student-iterations/$studentid/$iterationid/progress
+                childUpdates.put("/iterations/" + iterationKey + "/progress/", progress);
+                childUpdates.put("/student-iterations/" + studentKey + "/" + iterationKey + "/progress/", progress);
+                // Update iterarion status at/iterations/$iterationid/status
+                // and at /student-iterations/$studentid/$iterationid/status
+                childUpdates.put("/iterations/" + iterationKey + "/status/", status);
+                childUpdates.put("/student-iterations/" + studentKey + "/" + iterationKey + "/status/", status);
+
+                mDatabase.updateChildren(childUpdates);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         mNewFeatureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,7 +188,7 @@ public class FeatureListActivity extends BaseActivity {
             public void onClick(View v) {
                 //Check if body field is empty
                 final String body = mBodyField.getText().toString();
-                if(TextUtils.isEmpty(body)) {
+                if (TextUtils.isEmpty(body)) {
                     Toast.makeText(FeatureListActivity.this, "Must fill in body", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(FeatureListActivity.this, "Saving feature...", Toast.LENGTH_SHORT).show();
@@ -185,7 +236,7 @@ public class FeatureListActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int i = item.getItemId();
-        if(i == R.id.action_logout) {
+        if (i == R.id.action_logout) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(this, LoginActivity.class));
             finish();

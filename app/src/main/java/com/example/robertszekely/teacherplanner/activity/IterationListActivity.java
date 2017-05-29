@@ -97,6 +97,7 @@ public class IterationListActivity extends BaseActivity{
                                 Log.d(TAG, "View features button " + model.getTitle());
                                 Intent intent = new Intent(IterationListActivity.this, FeatureListActivity.class);
                                 intent.putExtra(FeatureListActivity.EXTRA_ITERATION_KEY, iterationKey);
+                                intent.putExtra(FeatureListActivity.EXTRA_STUDENT_KEY, studentKey);
                                 startActivity(intent);
                                 Log.d(TAG, "Sent iteration key: " + iterationKey);
                                 break;

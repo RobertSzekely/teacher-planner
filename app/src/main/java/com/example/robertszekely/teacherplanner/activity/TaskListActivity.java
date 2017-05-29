@@ -125,26 +125,26 @@ public class TaskListActivity extends BaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d(TAG, "A tag was updated");
-                int totalTasks=0, completedTasks=0;
-                for(DataSnapshot taskSnapshot: dataSnapshot.getChildren()) {
+                int totalTasks = 0, completedTasks = 0;
+                for (DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
                     totalTasks++;
                     if (taskSnapshot.getValue(Task.class).isCompleted()) {
                         completedTasks++;
                     }
                 }
                 double progress;
-                if(totalTasks == 0) {
+                if (totalTasks == 0) {
                     progress = 0;
-                } else  {
-                    progress = completedTasks*100/totalTasks;
+                } else {
+                    progress = completedTasks * 100 / totalTasks;
                 }
                 // update feature progress at /features/$featureid/progress
                 // and at /iteration-features/$iterationid/$featureid
-                mDatabase.child("features").child(featureKey).child("progress").setValue(progress);
-                mDatabase.child("iteration-features").child(iterationKey).child(featureKey).child("progress").setValue(progress);
-//                Log.d(TAG, "ITERAION KEY: " + iterationKey);
-//                Log.d(TAG, "Progress: " + String.valueOf((int)progress));
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put("/features/" + featureKey + "/progress/", progress);
+                childUpdates.put("/iteration-features/" + iterationKey + "/" + featureKey + "/progress/", progress);
 
+                mDatabase.updateChildren(childUpdates);
 
             }
 

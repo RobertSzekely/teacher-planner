@@ -26,6 +26,7 @@ public class Iteration {
     private String body;
     private String deadline;
     private double progress = 0;
+    private String status = "OPEN";
 
 //    private final String status;
 
@@ -89,5 +90,13 @@ public class Iteration {
 
     public void setDeadline(String deadline) {
         this.deadline = deadline;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
