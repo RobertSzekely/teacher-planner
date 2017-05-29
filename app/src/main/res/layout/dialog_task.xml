@@ -5,14 +5,14 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/dialog_feature_body_field"
+        android:id="@+id/dialog_task_body_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginTop="16dp"
-        android:hint="@string/enter_feature_description"
+        android:hint="Enter task description..."
         android:inputType="textEmailAddress"
         android:maxLines="10" />
 
@@ -23,14 +23,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/dialog_feature_cancel_button"
+            android:id="@+id/dialog_task_cancel_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cancel" />
 
         <Button
-            android:id="@+id/dialog_feature_confirm_button"
+            android:id="@+id/dialog_taske_confirm_button"
             style="@style/Base.Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

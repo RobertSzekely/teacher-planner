@@ -16,7 +16,10 @@ import android.widget.Toast;
 import com.example.robertszekely.teacherplanner.R;
 import com.example.robertszekely.teacherplanner.models.Feature;
 import com.example.robertszekely.teacherplanner.models.Task;
+import com.example.robertszekely.teacherplanner.viewholder.TaskViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import butterknife.BindView;
@@ -26,20 +29,64 @@ public class TaskListActivity extends BaseActivity {
 
     private static final String TAG = TaskListActivity.class.getSimpleName();
 
-//    @BindView(R.id.taskListRecyclerView)
-    RecyclerView mTaskRecyclerView;
+    public static final String EXTRA_FEATURE_KEY = "feature_key";
 
-    String receivedFeatureKey;
-    Query mQueryTasksForCurrentFeature;
+    private DatabaseReference mDatabase;
+    private FirebaseRecyclerAdapter<Task, TaskViewHolder> mAdapter;
+    private LinearLayoutManager mManager;
+
+    private String featureKey;
+
+    @BindView(R.id.task_recycler_view)
+    RecyclerView mRecycler;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        ButterKnife.bind(this);
-
         setContentView(R.layout.activity_task_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mManager = new LinearLayoutManager(this);
+        mRecycler.setHasFixedSize(true);
+        mRecycler.setLayoutManager(mManager);
+
+        // Gets the feature key from the previous activity
+        featureKey = (String) getIntent().getExtras().getSerializable(EXTRA_FEATURE_KEY);
+
+        //results tasks for current feature
+        Query taskQuery = mDatabase.child("feature-tasks").child(featureKey);
+
+        mAdapter = new FirebaseRecyclerAdapter<Task, TaskViewHolder>(
+                Task.class,
+                R.layout.row_task,
+                TaskViewHolder.class,
+                taskQuery) {
+
+            @Override
+            protected void populateViewHolder(TaskViewHolder viewHolder, final Task model, int position) {
+
+                viewHolder.bindToTask(model, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        switch (v.getId()) {
+                            case R.id.button_edit_task:
+                                Log.d(TAG, "Edit taks button: " + model.getBody());
+                                break;
+                            case R.id.button_remove_task:
+                                Log.d(TAG, "Remove task button: " + model.getBody());
+                                break;
+                            case R.id.checkbox_task:
+                                Log.d(TAG, "Task checkbox :" + model.getBody());
+                        }
+                    }
+                });
+
+            }
+        };
+        mRecycler.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -50,82 +97,10 @@ public class TaskListActivity extends BaseActivity {
             }
         });
 
-        receivedFeatureKey = (String) getIntent().getExtras().getSerializable(FEATURE_BUNDLE_KEY);
-
-        if(receivedFeatureKey != null) {
-            Log.d(TAG, "received feature:" + receivedFeatureKey);
-            mQueryTasksForCurrentFeature = mTaskReference.orderByChild(FEATURE_ID).equalTo(receivedFeatureKey);
-            setRecyclerView();
-            setAdapter();
-        } else {
-            Toast.makeText(this, "Something went wrong :(", Toast.LENGTH_SHORT).show();
-        }
-
-
-    }
-
-    private void setRecyclerView() {
-        mTaskRecyclerView = (RecyclerView) findViewById(R.id.taskListRecyclerView);
-        mTaskRecyclerView.setHasFixedSize(true);
-        mTaskRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    private void setAdapter() {
-        FirebaseRecyclerAdapter<Task, TaskViewHolder> taskFirebaseRecyclerViewAdapter = new FirebaseRecyclerAdapter<Task, TaskViewHolder>(
-                Task.class,
-                R.layout.row_task,
-                TaskViewHolder.class,
-                mQueryTasksForCurrentFeature) {
-
-            @Override
-            protected void populateViewHolder(TaskViewHolder viewHolder, Task model, int position) {
-
-                viewHolder.setCompletedCheckBox(model.isCompleted());
-                viewHolder.setDescriptionTexBox(model.getContent());
-                viewHolder.mEditButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //TODO
-                    }
-                });
-                viewHolder.mRemoveButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //TODO
-                    }
-                });
-
-            }
-        };
-        mTaskRecyclerView.setAdapter(taskFirebaseRecyclerViewAdapter);
 
     }
 
 
-    public static class TaskViewHolder extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.taskCompletedCheckBox)
-        CheckBox completedCheckBox;
-        @BindView(R.id.taskDescriptionTextView)
-        TextView mDescriptionTexBox;
-        @BindView(R.id.taskEditButton)
-        Button mEditButton;
-        @BindView(R.id.taskRemoveButton)
-        Button mRemoveButton;
-
-        public TaskViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-
-        private void setCompletedCheckBox(boolean completed) {
-            completedCheckBox.setChecked(completed);
-        }
-
-        private void setDescriptionTexBox(String description) {
-            mDescriptionTexBox.setText(description);
-        }
-    }
 
 
 

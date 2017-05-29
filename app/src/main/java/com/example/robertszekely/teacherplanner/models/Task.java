@@ -4,22 +4,40 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-
 public class Task {
-    private String taskName;
-    private String taskId;
-    private String content;
-    private boolean completed;
     private String featureId;
+    private String body;
+    private boolean completed = false;
 
-    public Task(String taskId, String taskName, String content, String featureId, boolean completed) {
-        this.taskName = taskName;
-        this.taskId = taskId;
-        this.content = content;
-        this.completed = completed;
+    public Task() {
+    }
+
+    public Task(String featureId, String body) {
         this.featureId = featureId;
+        this.body = body;
+    }
+
+    public String getFeatureId() {
+        return featureId;
+    }
+
+    public void setFeatureId(String featureId) {
+        this.featureId = featureId;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }

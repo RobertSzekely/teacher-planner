@@ -68,4 +68,7 @@
     <string name="call_number">Call Number</string>
     <string name="send_email">Send email</string>
     <string name="new_student">New Student</string>
+    <string name="enter_feature_description">Enter feature description...</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
 </resources>

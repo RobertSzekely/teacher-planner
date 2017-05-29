@@ -22,44 +22,42 @@
             android:layout_height="wrap_content">
 
             <CheckBox
-                android:id="@+id/taskCompletedCheckBox"
+                android:id="@+id/checkbox_task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/taskDescriptionTextView"
+                android:id="@+id/task_body_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:textSize="20sp"
                 tools:text="This is a really long task that has to be implemented ASAP or else somthing really bad will  happen and i cant say what will be happening then but i can say that it will not be ok, let me tell you that" />
 
-
-
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
 
             <Button
-                android:layout_marginStart="25dp"
-                android:id="@+id/taskEditButton"
+                android:id="@+id/button_edit_task"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                android:textColor="@color/colorGrey600"
-                android:text="@string/edit_details" />
+                android:layout_marginStart="25dp"
+                android:text="@string/edit_details"
+                android:textColor="@color/colorGrey600" />
 
             <Button
-                android:id="@+id/taskRemoveButton"
+                android:id="@+id/button_remove_task"
+                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="remove"
-                android:textColor="@color/colorAccentOrange"
-                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored" />
+                android:textColor="@color/colorAccentOrange" />
 
         </LinearLayout>
 
