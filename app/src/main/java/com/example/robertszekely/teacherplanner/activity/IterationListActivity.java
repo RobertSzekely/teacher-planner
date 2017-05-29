@@ -29,19 +29,24 @@ import com.example.robertszekely.teacherplanner.models.Student;
 import com.example.robertszekely.teacherplanner.viewholder.IterationViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class IterationListActivity extends BaseActivity{
+public class IterationListActivity extends BaseActivity {
 
     private static final String TAG = IterationListActivity.class.getSimpleName();
 
@@ -118,6 +123,38 @@ public class IterationListActivity extends BaseActivity{
 
         mRecycler.setAdapter(mAdapter);
 
+        iterationQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int totalIterations = 0;
+                double totalIterationsProgress = 0;
+                Iteration iteration;
+                for (DataSnapshot iterationSnapshot : dataSnapshot.getChildren()) {
+                    totalIterations++;
+                    iteration = iterationSnapshot.getValue(Iteration.class);
+                    totalIterationsProgress += iteration.getProgress();
+                }
+                double progress;
+                if (totalIterations == 0) {
+                    progress = 0;
+                } else {
+                    progress = totalIterationsProgress / totalIterations;
+                }
+                // Update student progress at /students/$studentid/progress
+                // and at /user-students/$userid/$studentid/progress
+                String userKey = getUid();
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put("/students/" + studentKey + "/progress/", progress);
+                childUpdates.put("/user-students/" + userKey + "/" + studentKey + "/progress/", progress);
+                mDatabase.updateChildren(childUpdates);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         mNewIterationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,7 +175,7 @@ public class IterationListActivity extends BaseActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int i = item.getItemId();
-        if(i == R.id.action_logout) {
+        if (i == R.id.action_logout) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(this, LoginActivity.class));
             finish();

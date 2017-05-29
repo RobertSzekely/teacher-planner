@@ -38,12 +38,14 @@ public class StudentDetailsActivity extends BaseActivity {
     TextView mLastNameView;
     @BindView(R.id.details_student_email)
     TextView mEmailView;
+    @BindView(R.id.details_student_progress_view)
+    TextView mProgressView;
     @BindView(R.id.details_student_phone_number)
     TextView mPhoneNumberView;
     @BindView(R.id.details_student_group)
     TextView mGroupView;
     @BindView(R.id.details_student_progress_bar)
-    ProgressBar mProgressView;
+    ProgressBar mProgressBar;
 
     private String studentKey;
 
@@ -65,7 +67,7 @@ public class StudentDetailsActivity extends BaseActivity {
             Log.d(TAG, "Received student key: " + studentKey);
 //            Query currentStudentQuerry = FirebaseDatabase.getInstance().getReference().child("student").child(studentKey);
             Query currentStudentQuerry = mStudentReference.child(studentKey);
-            currentStudentQuerry.addListenerForSingleValueEvent(new ValueEventListener() {
+            currentStudentQuerry.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Student student = dataSnapshot.getValue(Student.class);
@@ -75,10 +77,11 @@ public class StudentDetailsActivity extends BaseActivity {
 
                     mFirstNameView.setText(student.getFirstName());
                     mLastNameView.setText(student.getLastName());
+                    mProgressView.setText(String.valueOf((int) student.getProgress()));
                     mEmailView.setText(student.getEmail());
                     mPhoneNumberView.setText(student.getPhoneNumber());
                     mGroupView.setText(student.getGroup());
-                    mProgressView.setProgress((int) student.getProgress());
+                    mProgressBar.setProgress((int) student.getProgress());
                 }
 
                 @Override
@@ -88,6 +91,7 @@ public class StudentDetailsActivity extends BaseActivity {
             });
 
         }
+
     }
 
     @OnClick(R.id.button_view_iterations)
