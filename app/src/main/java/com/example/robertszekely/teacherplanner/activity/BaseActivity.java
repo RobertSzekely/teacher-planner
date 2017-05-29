@@ -143,31 +143,31 @@ public class BaseActivity  extends AppCompatActivity {
 //        mFeatureReference.child(feature5.getFeatureId()).setValue(feature5);
 //        mFeatureReference.child(feature6.getFeatureId()).setValue(feature6);
 //    }
-
-    public void addTasks() {
-        Task task1 = new Task(generateId(), "Task1", "Description of task 1", "4aab5372-6988-41ce-bb3b-6e6c74f47c16", false);
-        Task task2 = new Task(generateId(), "Task2", "Description of task 2", "4aab5372-6988-41ce-bb3b-6e6c74f47c16", false);
-        Task task3 = new Task(generateId(), "Task3", "Description of task 3", "4aab5372-6988-41ce-bb3b-6e6c74f47c16", false);
-        Task task4 = new Task(generateId(), "Task4", "Description of task 4", "4aab5372-6988-41ce-bb3b-6e6c74f47c16", false);
-        Task task5 = new Task(generateId(), "Task5", "Description of task 5", "4aab5372-6988-41ce-bb3b-6e6c74f47c16", false);
-        Task task6 = new Task(generateId(), "Task6", "Description of task 6", "4e6cd0f3-3f1a-4bb8-97db-f7bab49b9bfa", false);
-        Task task7 = new Task(generateId(), "Task7", "Description of task 7", "4e6cd0f3-3f1a-4bb8-97db-f7bab49b9bfa", false);
-        Task task8 = new Task(generateId(), "Task8", "Description of task 8", "4e6cd0f3-3f1a-4bb8-97db-f7bab49b9bfa", false);
-        Task task9 = new Task(generateId(), "Task9", "Description of task 9", "4e6cd0f3-3f1a-4bb8-97db-f7bab49b9bfa", false);
-        Task task10 = new Task(generateId(), "Task10", "Description of task 10", "4e6cd0f3-3f1a-4bb8-97db-f7bab49b9bfa", false);
-        Task task11 = new Task(generateId(), "Task11", "Description of task 11", "4e6cd0f3-3f1a-4bb8-97db-f7bab49b9bfa", false);
-        mTaskReference.child(task1.getTaskId()).setValue(task1);
-        mTaskReference.child(task2.getTaskId()).setValue(task2);
-        mTaskReference.child(task3.getTaskId()).setValue(task3);
-        mTaskReference.child(task4.getTaskId()).setValue(task4);
-        mTaskReference.child(task5.getTaskId()).setValue(task5);
-        mTaskReference.child(task6.getTaskId()).setValue(task6);
-        mTaskReference.child(task7.getTaskId()).setValue(task7);
-        mTaskReference.child(task8.getTaskId()).setValue(task8);
-        mTaskReference.child(task9.getTaskId()).setValue(task9);
-        mTaskReference.child(task10.getTaskId()).setValue(task10);
-        mTaskReference.child(task11.getTaskId()).setValue(task11);
-
-    }
+//
+//    public void addTasks() {
+//        Task task1 = new Task(generateId(), "Task1", "Description of task 1", "4aab5372-6988-41ce-bb3b-6e6c74f47c16", false);
+//        Task task2 = new Task(generateId(), "Task2", "Description of task 2", "4aab5372-6988-41ce-bb3b-6e6c74f47c16", false);
+//        Task task3 = new Task(generateId(), "Task3", "Description of task 3", "4aab5372-6988-41ce-bb3b-6e6c74f47c16", false);
+//        Task task4 = new Task(generateId(), "Task4", "Description of task 4", "4aab5372-6988-41ce-bb3b-6e6c74f47c16", false);
+//        Task task5 = new Task(generateId(), "Task5", "Description of task 5", "4aab5372-6988-41ce-bb3b-6e6c74f47c16", false);
+//        Task task6 = new Task(generateId(), "Task6", "Description of task 6", "4e6cd0f3-3f1a-4bb8-97db-f7bab49b9bfa", false);
+//        Task task7 = new Task(generateId(), "Task7", "Description of task 7", "4e6cd0f3-3f1a-4bb8-97db-f7bab49b9bfa", false);
+//        Task task8 = new Task(generateId(), "Task8", "Description of task 8", "4e6cd0f3-3f1a-4bb8-97db-f7bab49b9bfa", false);
+//        Task task9 = new Task(generateId(), "Task9", "Description of task 9", "4e6cd0f3-3f1a-4bb8-97db-f7bab49b9bfa", false);
+//        Task task10 = new Task(generateId(), "Task10", "Description of task 10", "4e6cd0f3-3f1a-4bb8-97db-f7bab49b9bfa", false);
+//        Task task11 = new Task(generateId(), "Task11", "Description of task 11", "4e6cd0f3-3f1a-4bb8-97db-f7bab49b9bfa", false);
+//        mTaskReference.child(task1.getTaskId()).setValue(task1);
+//        mTaskReference.child(task2.getTaskId()).setValue(task2);
+//        mTaskReference.child(task3.getTaskId()).setValue(task3);
+//        mTaskReference.child(task4.getTaskId()).setValue(task4);
+//        mTaskReference.child(task5.getTaskId()).setValue(task5);
+//        mTaskReference.child(task6.getTaskId()).setValue(task6);
+//        mTaskReference.child(task7.getTaskId()).setValue(task7);
+//        mTaskReference.child(task8.getTaskId()).setValue(task8);
+//        mTaskReference.child(task9.getTaskId()).setValue(task9);
+//        mTaskReference.child(task10.getTaskId()).setValue(task10);
+//        mTaskReference.child(task11.getTaskId()).setValue(task11);
+//
+//    }
 
 }

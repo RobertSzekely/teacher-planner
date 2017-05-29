@@ -106,25 +106,25 @@ public class TaskListFragment extends Fragment {
 
             @Override
             protected void populateViewHolder(TaskViewHolder viewHolder, final Task model, int position) {
-                viewHolder.setTaskName(model.getTaskName());
-                viewHolder.setTaksDetails(model.getContent());
-                viewHolder.setCheckBox(model.isCompleted());
-                viewHolder.setTaksProgress();
-
-                viewHolder.mTaskCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (buttonView.isChecked()) {
-//                            mIterationReference.child(model.getIterationId()).child("completed").setValue(true);
-                            mTaskRef.child(model.getTaskId()).child("completed").setValue(true);
-
-                        } else {
-//                            mIterationReference.child(model.getIterationId()).child("completed").setValue(false);
-                            mTaskRef.child(model.getTaskId()).child("completed").setValue(false);
-                        }
-
-                    }
-                });
+//                viewHolder.setTaskName(model.getTaskName());
+//                viewHolder.setTaksDetails(model.getContent());
+//                viewHolder.setCheckBox(model.isCompleted());
+//                viewHolder.setTaksProgress();
+//
+//                viewHolder.mTaskCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                    @Override
+//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                        if (buttonView.isChecked()) {
+////                            mIterationReference.child(model.getIterationId()).child("completed").setValue(true);
+//                            mTaskRef.child(model.getTaskId()).child("completed").setValue(true);
+//
+//                        } else {
+////                            mIterationReference.child(model.getIterationId()).child("completed").setValue(false);
+//                            mTaskRef.child(model.getTaskId()).child("completed").setValue(false);
+//                        }
+//
+//                    }
+//                });
 
             }
 

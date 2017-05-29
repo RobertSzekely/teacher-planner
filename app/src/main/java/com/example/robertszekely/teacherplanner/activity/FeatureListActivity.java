@@ -71,7 +71,7 @@ public class FeatureListActivity extends BaseActivity {
         iterationKey = (String) getIntent().getExtras().getSerializable(EXTRA_ITERATION_KEY);
 
         //results features for current iteration
-        Query featureQuery = mDatabase.child("iteration-features").child(iterationKey);
+        final Query featureQuery = mDatabase.child("iteration-features").child(iterationKey);
 
         mAdapter = new FirebaseRecyclerAdapter<Feature, FeatureViewHolder>(
                 Feature.class,
@@ -82,12 +82,19 @@ public class FeatureListActivity extends BaseActivity {
             @Override
             protected void populateViewHolder(FeatureViewHolder viewHolder, final Feature model, int position) {
 
+                final DatabaseReference featureRef = getRef(position);
+                final String featureKey = featureRef.getKey();
+
                 viewHolder.bindToFeature(model, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         switch (v.getId()) {
                             case R.id.button_view_tasks:
                                 Log.d(TAG, "View tasks button " + model.getBody());
+                                Intent intent = new Intent(FeatureListActivity.this, TaskListActivity.class);
+                                intent.putExtra(TaskListActivity.EXTRA_FEATURE_KEY, featureKey);
+                                startActivity(intent);
+                                Log.d(TAG, "Sent feature key: " + featureKey);
                                 break;
                             case R.id.button_edit_feature:
                                 Log.d(TAG, "Edit feature button " + model.getBody());
