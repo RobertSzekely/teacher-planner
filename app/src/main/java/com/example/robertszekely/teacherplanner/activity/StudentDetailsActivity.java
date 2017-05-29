@@ -32,8 +32,11 @@ public class StudentDetailsActivity extends BaseActivity {
 
     private DatabaseReference mStudentReference;
 
-    @BindView(R.id.details_student_name)
-    TextView mNameView;
+    @BindView(R.id.details_student_first_name)
+    TextView mFirstNameView;
+
+    @BindView(R.id.details_student_last_name)
+    TextView mLastNameView;
 
     @BindView(R.id.details_student_email)
     TextView mEmailView;
@@ -79,11 +82,12 @@ public class StudentDetailsActivity extends BaseActivity {
                     Log.d(TAG, "Queried student: " + student.toString());
                     Log.d(TAG, dataSnapshot.getValue(Student.class).toString());
 
-                    mNameView.setText(student.getName());
+                    mFirstNameView.setText(student.getFirstName());
+                    mLastNameView.setText(student.getLastName());
                     mEmailView.setText(student.getEmail());
                     mPhoneNumberView.setText(student.getPhoneNumber());
                     mGroupView.setText(student.getGroup());
-                    mProgressView.setProgress((int)student.getProgress());
+                    mProgressView.setProgress((int) student.getProgress());
                 }
 
                 @Override
@@ -118,7 +122,7 @@ public class StudentDetailsActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int i = item.getItemId();
-        if(i == R.id.action_logout) {
+        if (i == R.id.action_logout) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
@@ -127,7 +131,6 @@ public class StudentDetailsActivity extends BaseActivity {
             return super.onOptionsItemSelected(item);
         }
     }
-
 
 
 }

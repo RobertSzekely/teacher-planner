@@ -57,7 +57,7 @@ public class StudentListActivity extends BaseActivity {
         mRecycler.setHasFixedSize(true);
 
         //results students for the current user
-        Query studentQuery = mDatabase.child("user-students").child(getUid());
+        Query studentQuery = mDatabase.child("user-students").child(getUid()).orderByChild("lastName");
 
         mAdapter = new FirebaseRecyclerAdapter<Student, StudentViewHolder>(
                 Student.class,

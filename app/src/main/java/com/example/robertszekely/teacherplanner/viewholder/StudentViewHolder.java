@@ -14,14 +14,16 @@ import butterknife.ButterKnife;
  * Created by robertszekely on 28/05/2017.
  */
 
-public class StudentViewHolder extends RecyclerView.ViewHolder{
+public class StudentViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.row_name_text_view)
-    TextView nameView;
-    @BindView(R.id.row_email_text_view)
-    TextView emailView;
-    @BindView(R.id.row_phone_text_view)
-    TextView phoneView;
+    @BindView(R.id.row_student_first_name_view)
+    TextView mFirstNameView;
+    @BindView(R.id.row_student_last_name_view)
+    TextView mLastNameView;
+    @BindView(R.id.row_student_email_view)
+    TextView mEmailView;
+    @BindView(R.id.row_student_phone_view)
+    TextView mPhoneView;
 
     public StudentViewHolder(View itemView) {
         super(itemView);
@@ -29,8 +31,9 @@ public class StudentViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void bindToStudent(Student student) {
-        nameView.setText(student.getName());
-        emailView.setText(student.getEmail());
-        phoneView.setText(student.getPhoneNumber());
+        mFirstNameView.setText(student.getFirstName());
+        mLastNameView.setText(student.getLastName());
+        mEmailView.setText(student.getEmail());
+        mPhoneView.setText(student.getPhoneNumber());
     }
 }

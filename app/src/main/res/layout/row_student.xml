@@ -32,6 +32,7 @@
             android:textSize="20sp"
             tools:text="James Arthur"/>
 
+
         <!--<TextView-->
             <!--android:id="@+id/progressTextView"-->
             <!--android:layout_width="50dp"-->

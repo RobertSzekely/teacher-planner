@@ -34,8 +34,10 @@ public class NewStudentActivity extends BaseActivity {
 
     private DatabaseReference mDatabase;
 
-    @BindView(R.id.field_name)
-    EditText mNameField;
+    @BindView(R.id.field_first_name)
+    EditText mFirstNameField;
+    @BindView(R.id.field_last_name)
+    EditText mLastNameField;
     @BindView(R.id.field_email)
     EditText mEmailField;
     @BindView(R.id.field_phone_number)
@@ -62,14 +64,21 @@ public class NewStudentActivity extends BaseActivity {
     }
 
     private void submitStudent() {
-        final String name = mNameField.getText().toString();
+        final String firstName = mFirstNameField.getText().toString();
+        final String lastName = mLastNameField.getText().toString();
         final String email = mEmailField.getText().toString();
         final String phoneNumber = mPhoneNumberField.getText().toString();
         final String group = mGroupField.getText().toString();
 
-        //Name is required
-        if (TextUtils.isEmpty(name)) {
-            mNameField.setError(REQUIRED);
+        //First name is required
+        if (TextUtils.isEmpty(firstName)) {
+            mFirstNameField.setError(REQUIRED);
+            return;
+        }
+
+        //Last name is required
+        if (TextUtils.isEmpty(lastName)) {
+            mLastNameField.setError(REQUIRED);
             return;
         }
         //Email is required
@@ -107,7 +116,7 @@ public class NewStudentActivity extends BaseActivity {
 
                         } else {
                             //Write new user
-                            writeNewStudent(userId, name, email, phoneNumber, group);
+                            writeNewStudent(userId, firstName, lastName, email, phoneNumber, group);
                         }
                         //Finish this Activity, back to student list
                         setEditingEnabled(true);
@@ -123,7 +132,8 @@ public class NewStudentActivity extends BaseActivity {
     }
 
     private void setEditingEnabled(boolean enabled) {
-        mNameField.setEnabled(enabled);
+        mFirstNameField.setEnabled(enabled);
+        mLastNameField.setEnabled(enabled);
         mEmailField.setEnabled(enabled);
         mPhoneNumberField.setEnabled(enabled);
         mGroupField.setEnabled(enabled);
@@ -134,7 +144,7 @@ public class NewStudentActivity extends BaseActivity {
         }
     }
 
-    private void writeNewStudent(String userId, String name, String email, String phoneNumber, String group) {
+    private void writeNewStudent(String userId, String firstName, String lastName, String email, String phoneNumber, String group) {
 //        // Create new student at /user-student/$userid/$studentid
 //        String key = mDatabase.child("user-students").child(userId).push().getKey();
 //        Student student = new Student(userId, name, email, phoneNumber, group);
@@ -143,7 +153,7 @@ public class NewStudentActivity extends BaseActivity {
         // Create new student at /user-student/$userid/$studentid and at
         // /students/$studentid simultaneously
         String key = mDatabase.child("students").push().getKey();
-        Student student = new Student(userId, name, email, phoneNumber, group);
+        Student student = new Student(userId, firstName, lastName, email, phoneNumber, group);
 
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/students/" + key, student);

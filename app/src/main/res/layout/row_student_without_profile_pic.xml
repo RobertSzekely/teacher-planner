@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="start"
-    app:contentPadding="15dp"
     android:layout_margin="8dp"
+    android:clickable="true"
     android:foreground="?selectableItemBackground"
-    android:clickable="true">
+    app:contentPadding="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,44 +19,56 @@
             android:id="@+id/row_student_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_account_circle_48dp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@drawable/ic_account_circle_48dp" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="13dp">
+            android:layout_marginStart="13dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/row_student_first_name_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:textSize="20sp"
+                    tools:text="Robert" />
+
+                <TextView
+                    android:id="@+id/row_student_last_name_view"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="7dp"
+                    android:textSize="20sp"
+                    tools:text="Szekely" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/row_name_text_view"
+                android:id="@+id/row_student_email_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/row_student_photo"
-                android:layout_marginTop="7dp"
-                android:textSize="20sp"
-                tools:text="James Arthur"/>
-
-            <TextView
-                android:id="@+id/row_email_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/row_student_photo"
-                android:layout_alignParentEnd="true"
                 android:layout_marginTop="10dp"
-                android:text="email@something.com"
-                android:textColor="@color/com_facebook_button_background_color_disabled" />
+                android:textColor="@color/com_facebook_button_background_color_disabled"
+                tools:text="email@something.com" />
 
             <TextView
-                android:id="@+id/row_phone_text_view"
+                android:id="@+id/row_student_phone_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/row_email_text_view"
                 android:layout_marginTop="10dp"
-                android:text="(0752) 124 532"
-                android:textColor="@color/com_facebook_button_background_color_disabled" />
+                android:textColor="@color/com_facebook_button_background_color_disabled"
+                tools:text="(0752) 124 532" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>

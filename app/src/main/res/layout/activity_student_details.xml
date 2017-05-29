@@ -27,17 +27,35 @@
     <!---->
     <!--#00BF9A-->
 
-    <TextView
-        android:id="@+id/details_student_name"
-        style="@style/TextAppearance.AppCompat.Large"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:drawablePadding="10dp"
-        android:drawableStart="@drawable/ic_account_circle_48dp"
-        android:gravity="center_vertical"
-        tools:text="Szekely Robert" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/details_student_first_name"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_account_circle_48dp"
+            android:gravity="center_vertical"
+            tools:text="Robert" />
+
+        <TextView
+            android:id="@+id/details_student_last_name"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            tools:text="Szekely" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"

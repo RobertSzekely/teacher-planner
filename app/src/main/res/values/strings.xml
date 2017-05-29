@@ -71,4 +71,6 @@
     <string name="enter_feature_description">Enter feature description...</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
 </resources>
