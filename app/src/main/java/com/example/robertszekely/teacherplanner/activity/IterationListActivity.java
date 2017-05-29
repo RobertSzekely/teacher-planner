@@ -86,12 +86,19 @@ public class IterationListActivity extends BaseActivity{
             @Override
             protected void populateViewHolder(final IterationViewHolder viewHolder, final Iteration model, final int position) {
 
+                final DatabaseReference iterationRef = getRef(position);
+                final String iterationKey = iterationRef.getKey();
+
                 viewHolder.bindToIteration(model, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         switch (v.getId()) {
                             case R.id.button_view_features:
                                 Log.d(TAG, "View features button " + model.getTitle());
+                                Intent intent = new Intent(IterationListActivity.this, FeatureListActivity.class);
+                                intent.putExtra(FeatureListActivity.EXTRA_ITERATION_KEY, iterationKey);
+                                startActivity(intent);
+                                Log.d(TAG, "Sent iteration key: " + iterationKey);
                                 break;
                             case R.id.button_edit_iteration:
                                 Log.d(TAG, "Edit iteration button " + model.getTitle());

@@ -80,10 +80,10 @@ public class FeatureListFragment extends Fragment {
                 for(DataSnapshot featureSnapshot: dataSnapshot.getChildren()) {
                     totalFeatures++;
                     Feature feature = featureSnapshot.getValue(Feature.class);
-                    if(feature.isCompleted()) {
-                        completedFeatures++;
-                        Log.w(TAG, "completedFeatures++");
-                    }
+//                    if(feature.isCompleted()) {
+//                        completedFeatures++;
+//                        Log.w(TAG, "completedFeatures++");
+//                    }
                 }
                 float progress;
                 if(completedFeatures == 0) {
@@ -122,37 +122,37 @@ public class FeatureListFragment extends Fragment {
 
                 featureKey = getRef(position).getKey();
 
-                viewHolder.setFeatureName(model.getFeatureName());
-                viewHolder.setFeatureDetails(model.getContent());
-                viewHolder.setFeatureProgress(fmt(model.getProgress()));
-                viewHolder.setFeatureCheckBox(model.isCompleted());
-
-                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Log.w(TAG, "You clicked on " + position);
-                        mCallBack.passFeatureData(featureKey);
-
-                    }
-                });
-                viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (buttonView.isChecked()) {
-//                            mIterationReference.child(model.getIterationId()).child("completed").setValue(true);
-                            mFeatureReference.child(model.getFeatureId()).child("completed").setValue(true);
-                            mFeatureReference.child(model.getFeatureId()).child("progress").setValue(100);
-                            //setTasksCompleted(true);
-
-                        } else {
-//                            mIterationReference.child(model.getIterationId()).child("completed").setValue(false);
-                            mFeatureReference.child(model.getFeatureId()).child("completed").setValue(false);
-                            mFeatureReference.child(model.getFeatureId()).child("progress").setValue(0);
-                            //setTasksCompleted(false);
-                        }
-
-                    }
-                });
+//                viewHolder.setFeatureName(model.getFeatureName());
+//                viewHolder.setFeatureDetails(model.getContent());
+//                viewHolder.setFeatureProgress(fmt(model.getProgress()));
+//                viewHolder.setFeatureCheckBox(model.isCompleted());
+//
+//                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Log.w(TAG, "You clicked on " + position);
+//                        mCallBack.passFeatureData(featureKey);
+//
+//                    }
+//                });
+//                viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                    @Override
+//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                        if (buttonView.isChecked()) {
+////                            mIterationReference.child(model.getIterationId()).child("completed").setValue(true);
+//                            mFeatureReference.child(model.getFeatureId()).child("completed").setValue(true);
+//                            mFeatureReference.child(model.getFeatureId()).child("progress").setValue(100);
+//                            //setTasksCompleted(true);
+//
+//                        } else {
+////                            mIterationReference.child(model.getIterationId()).child("completed").setValue(false);
+//                            mFeatureReference.child(model.getFeatureId()).child("completed").setValue(false);
+//                            mFeatureReference.child(model.getFeatureId()).child("progress").setValue(0);
+//                            //setTasksCompleted(false);
+//                        }
+//
+//                    }
+//                });
             }
         };
         featureRecyclerView.setAdapter(firebaseFeatureAdapter);
