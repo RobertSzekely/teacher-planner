@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/meeting_student_first_name_view"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Robert" />
+
+    <TextView
+        android:id="@+id/meeting_student_last_name_view"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/meeting_student_first_name_view"
+        tools:text="Szekely" />
+
+    <Button
+        android:id="@+id/button_pick_date"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/meeting_student_first_name_view"
+        android:layout_marginTop="10dp"
+        android:onClick="datePicker"
+        android:text="Pick Date" />
+
+    <TextView
+        android:id="@+id/meeting_date_view"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/meeting_student_first_name_view"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_toEndOf="@id/button_pick_date"
+        tools:text="15/20/2017" />
+
+    <TextView
+        android:id="@+id/meeting_progress_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_pick_date"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginTop="10dp"
+        android:text="@string/progress"/>
+
+    <TextView
+        android:id="@+id/meeting_progress_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_pick_date"
+        android:layout_toEndOf="@id/meeting_progress_text_view"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        tools:text="60"/>
+    <TextView
+        android:id="@+id/percent_symbol_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_pick_date"
+        android:layout_toEndOf="@id/meeting_progress_view"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginTop="10dp"
+        android:text="@string/percent_symbol"/>
+
+    <Button
+        android:id="@+id/button_update_progress"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/meeting_progress_text_view"
+        android:layout_marginTop="10dp"
+        android:onClick="datePicker"
+        android:text="Update Progress" />
+
+
+    <EditText
+        android:id="@+id/field_meeting_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Other observations..."
+        android:layout_below="@id/button_update_progress"
+        android:inputType="textMultiLine"
+        android:maxLines="10" />
+
+
+</RelativeLayout>

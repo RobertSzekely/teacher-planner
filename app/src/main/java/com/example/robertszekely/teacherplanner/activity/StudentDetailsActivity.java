@@ -105,7 +105,9 @@ public class StudentDetailsActivity extends BaseActivity {
     @OnClick(R.id.button_view_meetings)
     public void viewMeetingsForCurrentStudent() {
         Log.d(TAG, "Clicked add meeting button");
-        //TODO
+        Intent intent = new Intent(StudentDetailsActivity.this, MeetingsListActivity.class);
+        intent.putExtra(MeetingsListActivity.EXTRA_STUDENT_KEY, studentKey);
+        startActivity(intent);
     }
 
     @OnClick(R.id.button_img_send_email)

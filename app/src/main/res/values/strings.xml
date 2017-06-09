@@ -73,4 +73,11 @@
     <string name="confirm">Confirm</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+    <string name="title_activity_meetings_list">MeetingsListActivity</string>
+    <string name="title_activity_new_meeting">NewMeetingActivity</string>
+    <string name="pick_deadline">Pick Deadline</string>
+    <string name="title">Title</string>
+    <string name="write_your_iteration_details">Write your iteration details...</string>
+    <string name="meetings">Meetings</string>
+    <string name="new_meeting">New Meeting</string>
 </resources>

@@ -59,7 +59,16 @@
             android:name=".activity.NewStudentActivity"
             android:label="@string/new_student"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.NewIterationActivity"></activity>
+        <activity android:name=".activity.NewIterationActivity" />
+        <activity
+            android:name=".activity.MeetingsListActivity"
+            android:label="@string/meetings"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.NewMeetingActivity"
+            android:label="@string/new_meeting"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.MeetingDetailsActivity"></activity>
     </application>
 
 </manifest>

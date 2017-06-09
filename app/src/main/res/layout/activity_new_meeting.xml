@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="32dp"
+    tools:context="com.example.robertszekely.teacherplanner.activity.NewMeetingActivity">
+
+    <include layout="@layout/content_new_meeting" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_submit_new_meeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_check_white_24dp" />
+
+</RelativeLayout>
