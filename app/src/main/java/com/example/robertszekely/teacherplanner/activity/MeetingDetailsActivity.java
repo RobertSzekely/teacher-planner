@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MeetingDetailsActivity extends AppCompatActivity {
+public class MeetingDetailsActivity extends BaseActivity {
 
     public static final String EXTRA_STUDENT_KEY = "student_key";
     public static final String EXTRA_MEETING_KEY = "meeting_key";

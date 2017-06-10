@@ -8,7 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-public class TeacherPlannerApplication extends Application {
+public class ProfessorPlannerApplication extends Application {
 
     @Override
     public void onCreate() {
