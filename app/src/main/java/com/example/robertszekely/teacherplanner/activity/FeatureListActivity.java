@@ -105,9 +105,11 @@ public class FeatureListActivity extends BaseActivity {
                                 break;
                             case R.id.button_edit_feature:
                                 Log.d(TAG, "Edit feature button " + model.getBody());
+                                editFeature(featureRef);
                                 break;
                             case R.id.button_remove_feature:
                                 Log.d(TAG, "Remove feature button " + model.getBody());
+                                removeFeature(featureRef);
                                 break;
                             default:
                                 break;
@@ -147,11 +149,11 @@ public class FeatureListActivity extends BaseActivity {
                 Map<String, Object> childUpdates = new HashMap<>();
                 // Update iteration progress at /iterations/$iterationid/progress
                 // and at /student-iterations/$studentid/$iterationid/progress
-                childUpdates.put("/iterations/" + iterationKey + "/progress/", progress);
+//                childUpdates.put("/iterations/" + iterationKey + "/progress/", progress);
                 childUpdates.put("/student-iterations/" + studentKey + "/" + iterationKey + "/progress/", progress);
                 // Update iterarion status at/iterations/$iterationid/status
                 // and at /student-iterations/$studentid/$iterationid/status
-                childUpdates.put("/iterations/" + iterationKey + "/status/", status);
+//                childUpdates.put("/iterations/" + iterationKey + "/status/", status);
                 childUpdates.put("/student-iterations/" + studentKey + "/" + iterationKey + "/status/", status);
 
                 mDatabase.updateChildren(childUpdates);
@@ -167,13 +169,21 @@ public class FeatureListActivity extends BaseActivity {
         mNewFeatureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showNewFeatureDialog();
+                showNewFeatureDialog(true, null);
             }
         });
 
     }
 
-    private void showNewFeatureDialog() {
+    private void removeFeature(DatabaseReference reference) {
+        reference.removeValue();
+    }
+
+    private void editFeature(DatabaseReference featureReference) {
+        showNewFeatureDialog(false, featureReference);
+    }
+
+    private void showNewFeatureDialog(final Boolean newFeature, final DatabaseReference featureReference) {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(FeatureListActivity.this);
         final View mDialogView = getLayoutInflater().inflate(R.layout.dialog_new_feature, null);
         final EditText mBodyField = (EditText) mDialogView.findViewById(R.id.dialog_feature_body_field);
@@ -192,7 +202,12 @@ public class FeatureListActivity extends BaseActivity {
                     Toast.makeText(FeatureListActivity.this, "Must fill in body", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(FeatureListActivity.this, "Saving feature...", Toast.LENGTH_SHORT).show();
-                    writeNewFeature(iterationKey, body);
+                    if(newFeature) {
+                        writeNewFeature(iterationKey, body);
+                    } else {
+                        updateFeature(featureReference, body);
+                    }
+
                     alertDialog.cancel();
                 }
             }
@@ -211,15 +226,19 @@ public class FeatureListActivity extends BaseActivity {
 
     }
 
+    private void updateFeature(DatabaseReference reference, String body) {
+        Feature feature = new Feature(body);
+        reference.setValue(feature);
+    }
 
     private void writeNewFeature(String iterationId, String body) {
         // Create new feature at /iteration-features/$iterationid/$featureid and at
         // /features/$featureid simultaneously
         String key = mDatabase.child("features").push().getKey();
-        Feature feature = new Feature(iterationId, body);
+        Feature feature = new Feature(body);
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/features/" + key, feature);
+//        childUpdates.put("/features/" + key, feature);
         childUpdates.put("/iteration-features/" + iterationId + "/" + key, feature);
 
         mDatabase.updateChildren(childUpdates);

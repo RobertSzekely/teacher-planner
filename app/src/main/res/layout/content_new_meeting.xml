@@ -72,15 +72,15 @@
         android:layout_marginTop="10dp"
         android:text="@string/percent_symbol"/>
 
-    <Button
-        android:id="@+id/button_update_progress"
-        style="@style/Base.Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/meeting_progress_text_view"
-        android:layout_marginTop="10dp"
-        android:onClick="datePicker"
-        android:text="Update Progress" />
+    <!--<Button-->
+        <!--android:id="@+id/button_update_progress"-->
+        <!--style="@style/Base.Widget.AppCompat.Button.Colored"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/meeting_progress_text_view"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:onClick="datePicker"-->
+        <!--android:text="Update Progress" />-->
 
 
     <EditText
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="Other observations..."
-        android:layout_below="@id/button_update_progress"
+        android:layout_below="@id/meeting_progress_view"
         android:inputType="textMultiLine"
         android:maxLines="10" />
 

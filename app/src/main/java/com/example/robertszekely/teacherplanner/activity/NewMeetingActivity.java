@@ -149,10 +149,10 @@ public class NewMeetingActivity extends BaseActivity implements DatePickerDialog
         // Creates new meeting at /student-meetings/$studentid/$meetingid and at
         // /meetings/$meetingid simultaneously
         String key = mDatabase.child("meetings").push().getKey();
-        Meeting meeting = new Meeting(studentId, studentFirstName, studentLastName, date, progress, body);
+        Meeting meeting = new Meeting(studentFirstName, studentLastName, date, progress, body);
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/meetings/" + key, meeting);
+//        childUpdates.put("/meetings/" + key, meeting);
         childUpdates.put("/student-meetings/" + studentId + "/" + key, meeting);
 
         mDatabase.updateChildren(childUpdates);

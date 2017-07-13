@@ -6,15 +6,13 @@ import java.io.Serializable;
 import lombok.*;
 
 public class Feature {
-    private String iterationId;
     private String body;
     private double progress = 0;
 
     public Feature() {
     }
 
-    public Feature(String iterationId, String body) {
-        this.iterationId = iterationId;
+    public Feature(String body) {
         this.body = body;
     }
 
@@ -26,13 +24,6 @@ public class Feature {
         this.body = body;
     }
 
-    public String getIterationId() {
-        return iterationId;
-    }
-
-    public void setIterationId(String iterationId) {
-        this.iterationId = iterationId;
-    }
 
     public double getProgress() {
         return progress;

@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by robertszekely on 28/05/2017.
+ * Created by robertszekely.
  */
 
 public class IterationViewHolder extends RecyclerView.ViewHolder {

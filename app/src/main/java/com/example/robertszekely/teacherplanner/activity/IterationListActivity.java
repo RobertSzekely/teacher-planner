@@ -111,6 +111,7 @@ public class IterationListActivity extends BaseActivity {
                                 break;
                             case R.id.button_remove_iteration:
                                 Log.d(TAG, "Remove iteration button " + model.getTitle());
+                                iterationRef.removeValue();
                                 break;
                             default:
                                 break;

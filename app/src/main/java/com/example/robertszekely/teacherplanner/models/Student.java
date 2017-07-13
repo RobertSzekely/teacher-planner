@@ -12,7 +12,6 @@ import lombok.*;
 
 @IgnoreExtraProperties
 public class Student {
-    private String uid;
     private String firstName;
     private String lastName;
     private String email;
@@ -24,21 +23,12 @@ public class Student {
         //Default constructor required for calls to DataSnapshop.getValue(Student.class)
     }
 
-    public Student(String uid, String firstName, String lastName, String email, String phoneNumber, String group) {
-        this.uid = uid;
+    public Student(String firstName, String lastName, String email, String phoneNumber, String group) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.group = group;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 
     public String getFirstName() {

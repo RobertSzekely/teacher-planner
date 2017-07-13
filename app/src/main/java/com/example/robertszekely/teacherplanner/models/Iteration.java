@@ -21,7 +21,6 @@ import lombok.*;
 
 public class Iteration {
 
-    private String studentId;
     private String title;
     private String body;
     private String deadline;
@@ -34,8 +33,7 @@ public class Iteration {
         //Default constructor required for calls to DataSnapshot.getValue(Iteration.class)
     }
 
-    public Iteration(String studentId, String title, String body, String deadline) {
-        this.studentId = studentId;
+    public Iteration(String title, String body, String deadline) {
         this.title = title;
         this.body = body;
         this.deadline = deadline;
@@ -51,14 +49,6 @@ public class Iteration {
 //    @StringDef({STATUS_OPEN, STATUS_INPROGRESS, STATUS_CLOSED})
 //    public @interface IterationStatusDef{ }
 
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
 
     public String getTitle() {
         return title;

@@ -129,10 +129,10 @@ public class NewIterationActivity extends BaseActivity implements DatePickerDial
         // Create new iteration at /student-iteration/$studentid/$iterationid and at
         // /iterations/$iterationid simultaneously
         String key = mDatabase.child("iterations").push().getKey();
-        Iteration iteration = new Iteration(studentId, title, body, deadline);
+        Iteration iteration = new Iteration(title, body, deadline);
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/iterations/" + key, iteration);
+//        childUpdates.put("/iterations/" + key, iteration);
         childUpdates.put("/student-iterations/" + studentId + "/" + key, iteration);
 
         mDatabase.updateChildren(childUpdates);

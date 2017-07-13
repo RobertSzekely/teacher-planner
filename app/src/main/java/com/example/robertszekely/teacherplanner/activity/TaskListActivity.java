@@ -3,24 +3,19 @@ package com.example.robertszekely.teacherplanner.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.robertszekely.teacherplanner.R;
-import com.example.robertszekely.teacherplanner.models.Feature;
 import com.example.robertszekely.teacherplanner.models.Task;
 import com.example.robertszekely.teacherplanner.viewholder.TaskViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -95,24 +90,24 @@ public class TaskListActivity extends BaseActivity {
                         switch (v.getId()) {
                             case R.id.button_edit_task:
                                 Log.d(TAG, "Edit taks button: " + model.getBody());
-                                //TODO
+                                editTask(taskRef);
                                 break;
                             case R.id.button_remove_task:
                                 Log.d(TAG, "Remove task button: " + model.getBody());
-                                //TODO
+                                removeTask(taskRef);
                                 break;
                             case R.id.checkbox_task:
                                 Log.d(TAG, "Task checkbox :" + model.getBody());
                                 //Need to write to both places where task is stored
-                                DatabaseReference globalTaskRef = mDatabase.child("tasks").child(taskKey);
+//                                DatabaseReference globalTaskRef = mDatabase.child("tasks").child(taskKey);
                                 DatabaseReference featureTaskRef = mDatabase.child("feature-tasks").child(featureKey).child(taskKey);
 
                                 final Boolean checked = viewHolder.mCompletedCheckBox.isChecked();
 
                                 //Run two transactions
-                                onTaskCheckboxClicked(globalTaskRef, checked);
+//                                onTaskCheckboxClicked(globalTaskRef, checked);
                                 onTaskCheckboxClicked(featureTaskRef, checked);
-//                                onTaskCheckboxClicked(taskKey, checked);
+//                                onTaskCheckboxClicked(featureTaskRef, checked);
                         }
                     }
                 });
@@ -141,7 +136,7 @@ public class TaskListActivity extends BaseActivity {
                 // update feature progress at /features/$featureid/progress
                 // and at /iteration-features/$iterationid/$featureid
                 Map<String, Object> childUpdates = new HashMap<>();
-                childUpdates.put("/features/" + featureKey + "/progress/", progress);
+//                childUpdates.put("/features/" + featureKey + "/progress/", progress);
                 childUpdates.put("/iteration-features/" + iterationKey + "/" + featureKey + "/progress/", progress);
 
                 mDatabase.updateChildren(childUpdates);
@@ -158,14 +153,19 @@ public class TaskListActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showNewTaskDialog();
+                showTaskDialog(true, null);
             }
         });
 
 
     }
 
-    private void showNewTaskDialog() {
+    private void removeTask(DatabaseReference reference) {
+        reference.removeValue();
+    }
+
+
+    private void showTaskDialog(final boolean newTask, final DatabaseReference taskReference) {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(TaskListActivity.this);
         final View mDialogView = getLayoutInflater().inflate(R.layout.dialog_task, null);
         final EditText mBodyField = (EditText) mDialogView.findViewById(R.id.dialog_task_body_field);
@@ -184,7 +184,12 @@ public class TaskListActivity extends BaseActivity {
                     Toast.makeText(TaskListActivity.this, "Must fill in body", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(TaskListActivity.this, "Saving task...", Toast.LENGTH_SHORT).show();
-                    writeNewTask(featureKey, body);
+                    if (newTask) {
+                        writeNewTask(featureKey, body);
+                    } else {
+                        updateTask(taskReference, body);
+                    }
+
                     alertDialog.cancel();
                 }
             }
@@ -202,28 +207,30 @@ public class TaskListActivity extends BaseActivity {
         alertDialog.show();
     }
 
+    private void editTask(DatabaseReference taskReference) {
+        showTaskDialog(false, taskReference);
+    }
+
+    private void updateTask(DatabaseReference taskReference , String body) {
+        Task task = new Task(body);
+        taskReference.setValue(task);
+
+    }
+
+
     private void writeNewTask(String featureId, String body) {
         // Create new task at /feature-tasks/$featureid/$taskid and at
         // /tasks/$taskid simultaneously
         String key = mDatabase.child("tasks").push().getKey();
-        Task task = new Task(featureId, body);
+        Task task = new Task(body);
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/tasks/" + key, task);
+//        childUpdates.put("/tasks/" + key, task);
         childUpdates.put("feature-tasks/" + featureId + "/" + key, task);
 
         mDatabase.updateChildren(childUpdates);
     }
 
-    private void onTaskCheckboxClicked(String taskKey, Boolean checked) {
-        // Update task completed value at /tasks/$taskid/completed and at
-        // /feature-tasks/$featureid/$taskid/completed simultaneously
-        HashMap<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/tasks/" + taskKey + "/completed/", checked);
-        childUpdates.put("/feature-tasks/" + featureKey + "/" + taskKey + "/completed/", checked);
-
-        mDatabase.updateChildren(childUpdates);
-    }
 
     private void onTaskCheckboxClicked(DatabaseReference taskRef, final boolean checked) {
         taskRef.runTransaction(new Transaction.Handler() {

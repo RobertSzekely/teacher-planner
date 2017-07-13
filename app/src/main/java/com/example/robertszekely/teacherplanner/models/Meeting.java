@@ -5,7 +5,6 @@ package com.example.robertszekely.teacherplanner.models;
  */
 
 public class Meeting {
-    private String studentId;
     private String studentFirstName;
     private String studentLastName;
     private String date;
@@ -15,21 +14,12 @@ public class Meeting {
     public Meeting() {
     }
 
-    public Meeting(String studentId, String studentFirstName, String studentLastName, String date, String studentProgress, String body) {
-        this.studentId = studentId;
+    public Meeting(String studentFirstName, String studentLastName, String date, String studentProgress, String body) {
         this.studentFirstName = studentFirstName;
         this.studentLastName = studentLastName;
         this.date = date;
         this.studentProgress = studentProgress;
         this.body = body;
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
     }
 
     public String getStudentFirstName() {
